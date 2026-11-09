@@ -65,6 +65,40 @@ export function watchSfx(cb: (running: boolean) => void) {
   return () => c.removeEventListener("statechange", fire);
 }
 
+/**
+ * Kiosk: one bell strike when 30 s of drawing time are left. Synthesised with
+ * Web Audio (inharmonic sine partials, each with its own decay), so there is
+ * no file to load. Does nothing while audio is still locked.
+ */
+export function playBell(volume = 0.7) {
+  const c = context();
+  if (!c || c.state !== "running") return;
+  const t = c.currentTime + 0.01;
+  const out = c.createGain();
+  out.gain.value = volume;
+  out.connect(c.destination);
+  const base = 1046.5; // C6
+  const partials: [ratio: number, amp: number, decay: number][] = [
+    [1, 1, 2.8],
+    [2, 0.55, 1.9],
+    [2.76, 0.4, 1.4],
+    [5.4, 0.22, 0.8],
+    [8.93, 0.1, 0.45],
+  ];
+  for (const [ratio, amp, decay] of partials) {
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = "sine";
+    osc.frequency.value = base * ratio;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(amp * 0.3, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + decay);
+    osc.connect(g).connect(out);
+    osc.start(t);
+    osc.stop(t + decay + 0.05);
+  }
+}
+
 /** Plays a sound; silently does nothing while audio is still locked. */
 export function playSfx(name: SfxName, o: PlayOptions = {}): SfxHandle {
   const c = context();

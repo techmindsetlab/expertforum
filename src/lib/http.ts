@@ -1,4 +1,5 @@
 import "server-only";
+import { SHARE_PATH } from "./config";
 
 export class HttpError extends Error {
   constructor(
@@ -27,6 +28,16 @@ export function publicOrigin(req?: Request) {
   if (req) return new URL(req.url).origin;
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return "http://localhost:3000";
+}
+
+/**
+ * Public link to an artwork's download page (QR codes, email, admin CSV).
+ * SHARE_URL points it at the NKP website, e.g.
+ * https://www.nadakreatifpro.co.id/case/expertforum; without it, this app.
+ */
+export function shareUrl(id: string, origin: string) {
+  const base = process.env.SHARE_URL?.replace(/\/$/, "");
+  return base ? `${base}/${id}` : `${origin}${SHARE_PATH}/${id}`;
 }
 
 export function absolute(url: string, origin: string) {

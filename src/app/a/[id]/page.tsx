@@ -14,6 +14,7 @@ export async function generateMetadata(props: PageProps<"/a/[id]">): Promise<Met
   return {
     title,
     description: `Sketsa tangan yang dilukis ulang oleh AI di booth Astragraphia & agit, ${EVENT.short}.`,
+    // Absolute (this app's own origin via metadataBase) so the card loads wherever the page is proxied.
     openGraph: { title, images: [{ url: `/api/art/${art.id}/card`, width: 1080, height: 1350 }] },
   };
 }

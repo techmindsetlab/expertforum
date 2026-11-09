@@ -14,6 +14,13 @@ export const EVENT = {
   campaign: "print your mark",
 } as const;
 
+/**
+ * Path the participant download page is served under, here and on the Nada
+ * Kreatif Pro website (which proxies everything below it to this app). The
+ * page's own files (brand logos, API calls, Next.js assets) live below it too.
+ */
+export const SHARE_PATH = "/case/expertforum";
+
 /** Paid AI images per visitor: the first one + 1 redo (regenerate or redraw). */
 export const MAX_ATTEMPTS = 2;
 

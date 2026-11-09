@@ -3,7 +3,10 @@
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import type { PublicArtwork } from "@/lib/artworks";
-import { EVENT } from "@/lib/config";
+import { EVENT, SHARE_PATH } from "@/lib/config";
+
+/** Same-app file URLs (local dev storage) go under SHARE_PATH so they also load when the page is proxied. */
+const underShare = (url: string) => (url.startsWith("/") ? `${SHARE_PATH}${url}` : url);
 import { renderReplay, type Drawing } from "@/lib/strokes";
 import { Ornament } from "@/components/Ornament";
 import s from "./share.module.css";
@@ -45,7 +48,7 @@ export function ShareView({ art }: { art: PublicArtwork }) {
     }, rootRef);
     let alive = true;
     Promise.race([
-      fetch(`/api/art/${art.id}/strokes`)
+      fetch(`${SHARE_PATH}/api/art/${art.id}/strokes`)
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => (drawing = d)),
       new Promise((r) => setTimeout(r, 2500)),
@@ -62,7 +65,7 @@ export function ShareView({ art }: { art: PublicArtwork }) {
   const share = async () => {
     const url = location.href;
     try {
-      const blob = await fetch(`/api/art/${art.id}/card`).then((r) => r.blob());
+      const blob = await fetch(`${SHARE_PATH}/api/art/${art.id}/card`).then((r) => r.blob());
       const file = new File([blob], `print-your-mark-${art.number}.png`, { type: "image/png" });
       if (navigator.canShare?.({ files: [file] })) {
         await navigator.share({ files: [file], title: "print your mark", text: `${art.name} ${no} · ${EVENT.short}`, url });
@@ -80,11 +83,11 @@ export function ShareView({ art }: { art: PublicArtwork }) {
         <Ornament preset="band" className={s.ornamentCanvas} />
       </div>
       <header className={s.head} data-in>
-        <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
+        <img className={s.logoAg} src={`${SHARE_PATH}/brand/astragraphia-wordmark-white.svg`} alt="Astragraphia" />
         <i />
-        <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
+        <img className={s.logo70} src={`${SHARE_PATH}/brand/astra70-logo-white.png`} alt="70 Tahun Astra" />
         <i />
-        <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
+        <img className={s.logoAgit} src={`${SHARE_PATH}/brand/agit-logo-white.png`} alt="agit" />
       </header>
 
       <div className={s.kicker} data-in>
@@ -95,12 +98,12 @@ export function ShareView({ art }: { art: PublicArtwork }) {
         <div className={s.art}>
           <canvas ref={canvasRef} />
           <div className={`${s.print} halftone`} data-halftone style={{ ["--cell" as string]: "14px", opacity: showSketch ? 0 : 1 }}>
-            <img src={art.art} alt={art.name} />
+            <img src={underShare(art.art)} alt={art.name} />
             <span className={`${s.sig} signature`} data-sig>
               {art.name}
             </span>
           </div>
-          {showSketch && art.sketch && <img className={s.sketch} src={art.sketch} alt="" />}
+          {showSketch && art.sketch && <img className={s.sketch} src={underShare(art.sketch)} alt="" />}
         </div>
         <div className={s.caption}>
           <b>{art.name}</b>
@@ -109,7 +112,7 @@ export function ShareView({ art }: { art: PublicArtwork }) {
       </div>
 
       <div className={s.actions} data-in>
-        <a className={s.primary} href={`/api/art/${art.id}/card?download`} download>
+        <a className={s.primary} href={`${SHARE_PATH}/api/art/${art.id}/card?download`} download>
           {en ? "Download artwork" : "Unduh karya"}
         </a>
         <button className={s.secondary} onClick={share}>

@@ -1,6 +1,7 @@
 import "server-only";
 import { getArtworkForOperator, markEmailed } from "./artworks";
 import { EVENT } from "./config";
+import { shareUrl } from "./http";
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
@@ -13,7 +14,7 @@ export async function sendArtworkEmail(id: string, origin: string) {
   if (art.status !== "submitted" || !art.email) return; // email is optional on the kiosk
 
   const en = art.locale === "en";
-  const link = `${origin}/a/${art.id}`;
+  const link = shareUrl(art.id, origin);
   const card = `${origin}/api/art/${art.id}/card`;
   const qr = `${origin}/api/qr/${art.id}`;
   const logo = `${origin}/brand/astragraphia-wordmark.png`;

@@ -1,5 +1,5 @@
 import { adminStats, listForAdmin } from "@/lib/artworks";
-import { jsonError } from "@/lib/http";
+import { jsonError, shareUrl } from "@/lib/http";
 
 const csvCell = (v: unknown) => {
   const s = v == null ? "" : String(v);
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
       const head = ["number", "name", "email", "marketing_opt_in", "locale", "kiosk", "submitted_at", "emailed_at", "print_count", "label_count", "hidden", "share_url"];
       const origin = url.origin;
       const lines = rows.map((r) =>
-        [r.number, r.name, r.email, r.marketingOptIn, r.locale, r.kioskId, r.submittedAt?.toISOString(), r.emailedAt?.toISOString(), r.printCount, r.labelCount, r.hidden, `${origin}/a/${r.id}`]
+        [r.number, r.name, r.email, r.marketingOptIn, r.locale, r.kioskId, r.submittedAt?.toISOString(), r.emailedAt?.toISOString(), r.printCount, r.labelCount, r.hidden, shareUrl(r.id, origin)]
           .map(csvCell)
           .join(","),
       );

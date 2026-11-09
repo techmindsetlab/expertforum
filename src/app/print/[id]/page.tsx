@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import QRCode from "qrcode";
 import { getArtworkForOperator } from "@/lib/artworks";
 import { EVENT } from "@/lib/config";
-import { publicOrigin } from "@/lib/http";
+import { publicOrigin, shareUrl } from "@/lib/http";
 import { FitLine } from "./FitLine";
 import { sign } from "./fonts";
 import { PrintToolbar } from "./PrintToolbar";
@@ -18,7 +18,7 @@ export default async function PrintPage(props: PageProps<"/print/[id]">) {
   if (!art || art.status !== "submitted" || !art.artUrl) notFound();
 
   const origin = publicOrigin();
-  const qr = await QRCode.toString(`${origin}/a/${art.id}`, {
+  const qr = await QRCode.toString(shareUrl(art.id, origin), {
     type: "svg",
     margin: 0,
     errorCorrectionLevel: "M",

@@ -5,7 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { MAX_ATTEMPTS, NAME_MAX } from "@/lib/config";
 import { EMAIL_RE, isNameAllowed, maskEmail } from "@/lib/names";
-import { playSfx, unlockSfx, type SfxHandle, type SfxName } from "@/lib/sfx";
+import { playBell, playSfx, unlockSfx, type SfxHandle, type SfxName } from "@/lib/sfx";
 import { compactDrawing, PALETTE, SIZE_STEPS, TOOLS, type Stroke, type Tool } from "@/lib/strokes";
 import { DEFAULT_STYLE, STYLE_IDS, STYLE_THUMBS, type StyleId } from "@/lib/styles";
 import { DrawCanvas, exportDrawing } from "./DrawCanvas";
@@ -28,6 +28,7 @@ const IDLE_COUNTDOWN = 10;
 const SUCCESS_RESET_S = 20;
 const DRAW_LIMIT_MS = 180_000; // 3 minutes per drawing; submitting stays possible afterwards
 const COUNTDOWN_SFX_S = 10; // countdown sound: ten ticks, final hit at 10.0 s
+const BELL_AT_S = 30; // one bell strike when this much drawing time is left
 const KIOSK_SFX: SfxName[] = ["pen", "countdown", "marker", "points"];
 
 const fmt = (n: number) => `#${String(n).padStart(3, "0")}`;
@@ -215,7 +216,7 @@ export default function KioskApp() {
       .catch(() => {});
   }, [step]);
 
-  // ─── Drawing time: 3 minutes, countdown sound over the last 10 s ──
+  // ─── Drawing time: 3 minutes, a bell at 30 s left, countdown sound over the last 10 s ──
   const startDrawing = useCallback(() => {
     setDeadline(Date.now() + DRAW_LIMIT_MS);
     setLeft(DRAW_LIMIT_MS);
@@ -225,9 +226,14 @@ export default function KioskApp() {
   useEffect(() => {
     if (step !== "draw" || deadline == null) return;
     let ticks: SfxHandle | null = null;
+    let rang = deadline - Date.now() <= BELL_AT_S * 1000; // back on a canvas already past 30 s: no bell
     const id = setInterval(() => {
       const ms = Math.max(0, deadline - Date.now());
       setLeft(ms);
+      if (!rang && ms > 0 && ms <= BELL_AT_S * 1000) {
+        rang = true;
+        playBell();
+      }
       if (!ticks && ms > 0 && ms <= COUNTDOWN_SFX_S * 1000) ticks = playSfx("countdown", { offset: COUNTDOWN_SFX_S - ms / 1000 });
       if (ms === 0) clearInterval(id);
     }, 250);
