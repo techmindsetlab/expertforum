@@ -447,8 +447,10 @@ export const ORNAMENT_PRESETS = {
   kiosk: {
     cell: (w: number) => w / 6,
     density: (u: number, v: number, aspect: number) => {
-      const tr = 1 - Math.hypot((1 - u) * 1.6, (v / aspect) * 1.55); // clear of the "print" headline
-      return Math.max(0, tr * 1.3);
+      const tr = 1 - Math.hypot((1 - u) * 1.6, (v / aspect) * 1.25); // clear of the "print" headline
+      // Logo row and the "print" headline stay clear: two right-hand columns, the top row only at the ID/EN corner.
+      const header = u < 0.62 || (v < 0.085 && u < 0.8) ? 0 : 1;
+      return Math.max(0, tr * 1.3) * header;
     },
     fps: 30,
     maxDpr: 1,

@@ -49,8 +49,8 @@
   gap: 1.6vh;
 }
 
-/* astragraphia · 70 Tahun Astra · agit — sized so both "member of ASTRA"
-   lines match. */
+/* astragraphia · 70 Tahun Astra · agit · Expert Forum — sized so both
+   "member of ASTRA" lines match. */
 .lockup {
   display: flex;
   align-items: center;
@@ -71,6 +71,10 @@
 
 .logoAgit {
   height: 5.2vh;
+}
+
+.logoEf {
+  height: 4.8vh;
 }
 
 .lockup i {

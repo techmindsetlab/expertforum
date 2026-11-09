@@ -27,8 +27,8 @@
   }
 }
 
-/* Header: astragraphia · 70 Tahun Astra · agit, both "member of ASTRA"
-   lines the same size. */
+/* Header: astragraphia · 70 Tahun Astra · agit · Expert Forum, both
+   "member of ASTRA" lines the same size. */
 .top {
   display: flex;
   align-items: center;
@@ -50,6 +50,10 @@
 
 .logoAgit {
   height: 9mm;
+}
+
+.logoEf {
+  height: 8.6mm;
 }
 
 /* Artwork runs from the header down to the footer rule. */

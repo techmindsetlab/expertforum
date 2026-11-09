@@ -28,7 +28,7 @@
   }
 }
 
-/* Header: astragraphia · 70 Tahun Astra · agit. */
+/* Header: astragraphia · 70 Tahun Astra · agit · Expert Forum. */
 .top {
   display: flex;
   align-items: center;
@@ -50,6 +50,10 @@
 
 .logoAgit {
   height: 5.8mm;
+}
+
+.logoEf {
+  height: 5.2mm;
 }
 
 /* Square artwork (the AI output is 1:1), full width of the label. */
