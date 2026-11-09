@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { drawStroke, renderDrawing, type Stroke, type StrokePoint } from "@/lib/strokes";
+import { drawStroke, renderDrawing, type Stroke, type StrokePoint, type Tool } from "@/lib/strokes";
 import s from "./kiosk.module.css";
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
   onChange: (strokes: Stroke[]) => void;
   color: string;
   size: number;
+  tool: Tool;
   placeholder: string;
   /** Time is up: no new strokes (a stroke in progress is committed). */
   disabled?: boolean;
@@ -21,7 +22,7 @@ type Props = {
  * the stroke in progress — keeps it smooth on the Galaxy Tab A's Mali GPU.
  * Palm rejection: once the S Pen is seen, finger touches are ignored.
  */
-export function DrawCanvas({ strokes, onChange, color, size, placeholder, disabled, onStrokeStart, onStrokeEnd }: Props) {
+export function DrawCanvas({ strokes, onChange, color, size, tool, placeholder, disabled, onStrokeStart, onStrokeEnd }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const baseRef = useRef<HTMLCanvasElement>(null);
   const liveRef = useRef<HTMLCanvasElement>(null);
@@ -97,7 +98,7 @@ export function DrawCanvas({ strokes, onChange, color, size, placeholder, disabl
     current.current = {
       id: e.pointerId,
       t0,
-      stroke: { color, size, pen, points: [toPoint(e, t0)] },
+      stroke: { color, size, pen, tool, points: [toPoint(e, t0)] },
     };
     if (!raf.current) raf.current = requestAnimationFrame(renderLive);
     onStrokeStart?.();

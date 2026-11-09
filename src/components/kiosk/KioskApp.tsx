@@ -6,7 +6,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { MAX_ATTEMPTS, NAME_MAX } from "@/lib/config";
 import { EMAIL_RE, isNameAllowed, maskEmail } from "@/lib/names";
 import { playSfx, unlockSfx, type SfxHandle, type SfxName } from "@/lib/sfx";
-import { BRUSHES, compactDrawing, PALETTE, type Stroke } from "@/lib/strokes";
+import { compactDrawing, PALETTE, SIZE_STEPS, TOOLS, type Stroke, type Tool } from "@/lib/strokes";
 import { DEFAULT_STYLE, STYLE_IDS, STYLE_THUMBS, type StyleId } from "@/lib/styles";
 import { DrawCanvas, exportDrawing } from "./DrawCanvas";
 import { DICT, type Locale } from "./i18n";
@@ -65,7 +65,8 @@ export default function KioskApp() {
 
   const [strokes, setStrokes] = useState<Stroke[]>([]);
   const [color, setColor] = useState<string>(PALETTE[0]);
-  const [brush, setBrush] = useState(1);
+  const [brush, setBrush] = useState(1); // size step: small / medium / large
+  const [tool, setTool] = useState<Tool>("pen");
   const [idea, setIdea] = useState(0);
   /** Drawing deadline (epoch ms) and the time left, ticking while on the draw step. */
   const [deadline, setDeadline] = useState<number | null>(null);
@@ -161,6 +162,7 @@ export default function KioskApp() {
       setStrokes([]);
       setColor(PALETTE[0]);
       setBrush(1);
+      setTool("pen");
       setIdea(0);
       setDeadline(null);
       setLeft(DRAW_LIMIT_MS);
@@ -418,9 +420,9 @@ export default function KioskApp() {
       onContextMenu={(e) => e.preventDefault()}
     >
       <div className={s.bg}>
-        <div className={`${s.glow} ${s.glowMagenta}`} />
-        <div className={`${s.glow} ${s.glowOrange}`} />
-        <div className={`${s.glow} ${s.glowPink}`} />
+        <div className={`${s.glow} ${s.glowRoyal}`} />
+        <div className={`${s.glow} ${s.glowSky}`} />
+        <div className={`${s.glow} ${s.glowSoft}`} />
       </div>
       <div className={s.brandBar} />
       {/* Expert Forum ornament: full strength on the open screens (start, AI painting, done), dimmed behind forms,
@@ -593,7 +595,8 @@ export default function KioskApp() {
                     setStrokes(next);
                   }}
                   color={color}
-                  size={BRUSHES[brush]}
+                  size={TOOLS.find((x) => x.id === tool)!.size * SIZE_STEPS[brush]}
+                  tool={tool}
                   placeholder={t.drawHere}
                   disabled={timeUp}
                   onStrokeStart={() => {
@@ -606,16 +609,27 @@ export default function KioskApp() {
                   }}
                 />
               </div>
+              {/* Canva-style draw panel: pen tray (the picked tool rises), colour grid, size. */}
               <div className={s.toolbar} data-anim>
+                <div className={s.tools} role="group" aria-label={t.toolsLabel}>
+                  {TOOLS.map(({ id }) => (
+                    <button key={id} className={s.tool} aria-pressed={tool === id} onClick={() => setTool(id)}>
+                      <span className={s.penWin}>
+                        <PenArt kind={id} color={color} />
+                      </span>
+                      <span className={s.toolName}>{t.tools[id]}</span>
+                    </button>
+                  ))}
+                </div>
                 <div className={s.colors}>
                   {PALETTE.map((c) => (
                     <button key={c} className={s.color} style={{ background: c }} aria-pressed={c === color} aria-label={c} onClick={() => setColor(c)} />
                   ))}
                 </div>
-                <div className={s.brushes}>
-                  {BRUSHES.map((b, i) => (
-                    <button key={b} className={s.brush} aria-pressed={i === brush} aria-label={`brush ${i + 1}`} onClick={() => setBrush(i)}>
-                      <i style={{ width: `${0.45 + i * 0.45}rem`, height: `${0.45 + i * 0.45}rem` }} />
+                <div className={s.brushes} role="group" aria-label={t.sizeLabel}>
+                  {SIZE_STEPS.map((k, i) => (
+                    <button key={k} className={s.brush} aria-pressed={i === brush} aria-label={`${t.sizeLabel} ${i + 1}`} onClick={() => setBrush(i)}>
+                      <i style={{ width: `${0.4 + i * 0.42}rem`, height: `${0.4 + i * 0.42}rem`, background: tool === "highlighter" ? `${color}99` : color }} />
                     </button>
                   ))}
                 </div>
@@ -883,6 +897,55 @@ function Check({ size = 18 }: { size?: number }) {
       <path d="M5 12.5l4.5 4.5L19 7.5" />
     </svg>
   );
+}
+
+/** Upright pen for the tool tray (Canva-style); the tip takes the selected colour. */
+function PenArt({ kind, color }: { kind: Tool; color: string }) {
+  const tip = { fill: color, stroke: "rgba(0,0,0,0.28)", strokeWidth: 0.8 };
+  const cone = { fill: "#e4e6eb", stroke: "#c3c7cf", strokeWidth: 1 };
+  const body = (x: number, w: number) => (
+    <>
+      <rect x={x} y="46" width={w} height="76" rx="6" fill="#fbfbfc" stroke="#c3c7cf" strokeWidth="1" />
+      <rect x={x + 0.5} y="62" width={w - 1} height="8" fill={color} />
+    </>
+  );
+  switch (kind) {
+    case "marker":
+      return (
+        <svg viewBox="0 0 48 120" aria-hidden>
+          <path d="M10 46 L38 46 L32 26 L16 26 Z" {...cone} />
+          <path d="M17 26 L31 26 L31 16 Q24 3 17 16 Z" {...tip} />
+          {body(10, 28)}
+        </svg>
+      );
+    case "glow":
+      return (
+        <svg viewBox="0 0 48 120" aria-hidden>
+          <circle cx="24" cy="11" r="11" fill={color} opacity="0.28" />
+          <circle cx="24" cy="11" r="7" fill={color} opacity="0.45" />
+          <path d="M10 46 L38 46 L28.5 18 L19.5 18 Z" {...cone} />
+          <path d="M19.5 18 L28.5 18 L24 5 Z" {...tip} />
+          <path d="M23 15 L25 15 L24 9 Z" fill="#fff" opacity="0.9" />
+          {body(10, 28)}
+        </svg>
+      );
+    case "highlighter":
+      return (
+        <svg viewBox="0 0 48 120" aria-hidden>
+          <path d="M6 46 L42 46 L36 30 L12 30 Z" {...cone} />
+          <path d="M13 30 L35 30 L35 15 L13 23 Z" {...tip} opacity="0.85" />
+          {body(6, 36)}
+        </svg>
+      );
+    default:
+      return (
+        <svg viewBox="0 0 48 120" aria-hidden>
+          <path d="M11 46 L37 46 L27 14 L21 14 Z" {...cone} />
+          <path d="M21 14 L27 14 L24 3 Z" {...tip} />
+          {body(11, 26)}
+        </svg>
+      );
+  }
 }
 
 function UndoIcon() {

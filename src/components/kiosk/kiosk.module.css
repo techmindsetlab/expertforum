@@ -13,9 +13,9 @@
   touch-action: manipulation;
   color: #fff;
 
-  /* Astragraphia primary colours (brand guideline) + the main gradient
-     burgundy → magenta → orange. The kiosk sits in the Astragraphia & agit
-     booth, so it wears their colours; the Expert Forum ornament stays on top. */
+  /* Background stays Expert Forum blue; Astragraphia's primary colours
+     (brand guideline) and the main gradient burgundy → magenta → orange are
+     for elements and buttons only. */
   --ag-burgundy: #6c1d45;
   --ag-magenta: #c6007e;
   --ag-orange: #de7c00;
@@ -24,12 +24,12 @@
   --magenta: var(--ag-magenta);
   --plum-ink: #3b0f26;
 
-  background: linear-gradient(170deg, #7a2050 0%, #5a1638 38%, #3e0f28 72%, #2a0a1b 100%);
+  background: linear-gradient(180deg, #123b7c 0%, #0b1f3a 48%, #071a33 100%);
 }
 
-/* Moving light from the main gradient: a magenta and an orange glow drift
-   slowly over the burgundy (transform-only, cheap on the tablet GPU). The
-   wrapper clips them so they never add scrollable area to the kiosk. */
+/* Expert Forum blue light: royal and sky glows drift slowly over the navy
+   (transform-only, cheap on the tablet GPU). The wrapper clips them so they
+   never add scrollable area to the kiosk. */
 .bg {
   position: absolute;
   inset: 0;
@@ -46,30 +46,30 @@
   will-change: transform;
 }
 
-.glowMagenta {
-  left: -45vmax;
-  top: -40vmax;
-  background: radial-gradient(closest-side, rgba(198, 0, 126, 0.78), rgba(198, 0, 126, 0.32) 55%, rgba(198, 0, 126, 0));
-  animation: glowMagenta 19s ease-in-out infinite alternate;
+.glowRoyal {
+  right: -40vmax;
+  top: -50vmax;
+  background: radial-gradient(closest-side, rgba(32, 64, 218, 0.85), rgba(32, 64, 218, 0.3) 55%, rgba(32, 64, 218, 0));
+  animation: glowRoyal 21s ease-in-out infinite alternate;
 }
 
-.glowOrange {
-  right: -50vmax;
-  bottom: -55vmax;
-  background: radial-gradient(closest-side, rgba(222, 124, 0, 0.72), rgba(222, 124, 0, 0.28) 55%, rgba(222, 124, 0, 0));
-  animation: glowOrange 23s ease-in-out infinite alternate;
+.glowSky {
+  left: -55vmax;
+  bottom: -60vmax;
+  background: radial-gradient(closest-side, rgba(3, 128, 225, 0.55), rgba(3, 128, 225, 0.2) 55%, rgba(3, 128, 225, 0));
+  animation: glowSky 25s ease-in-out infinite alternate;
 }
 
-.glowPink {
+.glowSoft {
   width: 70vmax;
   height: 70vmax;
   left: 10vmax;
   top: 35vmax;
-  background: radial-gradient(closest-side, rgba(232, 60, 140, 0.4), rgba(232, 60, 140, 0));
-  animation: glowPink 29s ease-in-out infinite alternate;
+  background: radial-gradient(closest-side, rgba(37, 166, 225, 0.18), rgba(37, 166, 225, 0));
+  animation: glowSoft 31s ease-in-out infinite alternate;
 }
 
-@keyframes glowMagenta {
+@keyframes glowRoyal {
   from {
     transform: translate3d(0, 0, 0) scale(1);
   }
@@ -78,7 +78,7 @@
   }
 }
 
-@keyframes glowOrange {
+@keyframes glowSky {
   from {
     transform: translate3d(0, 0, 0) scale(1.1);
   }
@@ -87,7 +87,7 @@
   }
 }
 
-@keyframes glowPink {
+@keyframes glowSoft {
   from {
     transform: translate3d(-12vmax, 8vmax, 0) scale(0.9);
   }
@@ -207,7 +207,7 @@
   display: flex;
   padding: 0.3rem;
   border-radius: 999px;
-  background: rgba(40, 6, 26, 0.4);
+  background: rgba(5, 18, 40, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
@@ -520,7 +520,7 @@
   text-align: left;
   padding: 1rem 1.4rem 1.1rem;
   border-radius: 1.3rem;
-  background: rgba(30, 4, 20, 0.72);
+  background: rgba(5, 18, 40, 0.7);
   border: 2px solid rgba(255, 255, 255, 0.12);
   transition:
     border-color 0.2s,
@@ -529,7 +529,7 @@
 
 .field[data-active="true"] {
   border-color: #fff;
-  background: rgba(30, 4, 20, 0.86);
+  background: rgba(5, 18, 40, 0.85);
 }
 
 .field[data-invalid="true"] {
@@ -774,7 +774,7 @@
   height: 2.8rem;
   padding: 0 1.1rem 0 0.9rem;
   border-radius: 999px;
-  background: rgba(40, 6, 26, 0.42);
+  background: rgba(5, 18, 40, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 1.6rem;
   font-weight: 700;
@@ -833,7 +833,7 @@
   overflow: hidden;
   background: #fff;
   box-shadow:
-    0 2rem 5rem rgba(26, 2, 14, 0.45),
+    0 2rem 5rem rgba(2, 10, 26, 0.45),
     0 0 0 0.4rem rgba(255, 255, 255, 0.12);
 }
 
@@ -859,44 +859,110 @@
   pointer-events: none;
 }
 
+/* Draw panel (Canva-style): pen tray · colour grid · size. */
 .toolbar {
-  margin-top: 1.2rem;
+  margin-top: 1.1rem;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.9rem;
+}
+
+/* White panels like Canva's draw sidebar, so every colour (black too) reads. */
+.tools,
+.colors,
+.brushes {
+  border-radius: 1.2rem;
+  background: #fff;
+  box-shadow: 0 0.8rem 2rem rgba(2, 10, 26, 0.35);
+}
+
+/* Pens stand in a tray; the picked one rises with a little bounce. */
+.tools {
+  display: flex;
+  gap: 0.1rem;
+  padding: 0 0.4rem;
+}
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 4rem;
+}
+
+.penWin {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 6.2rem;
+  overflow: hidden;
+}
+
+.penWin svg {
+  width: 3.1rem;
+  height: auto;
+  flex: none;
+  transform: translate3d(0, 2.6rem, 0);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0.25rem 0.35rem rgba(11, 31, 58, 0.22));
+}
+
+.tool[aria-pressed="true"] .penWin svg {
+  transform: translate3d(0, 0.3rem, 0);
+}
+
+.toolName {
+  width: 100%;
+  padding: 0.35rem 0 0.5rem;
+  border-top: 1px solid #e3e6ec;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  color: #7a8597;
+}
+
+.tool[aria-pressed="true"] .toolName {
+  color: #c6007e;
 }
 
 .colors {
-  display: flex;
-  gap: 0.6rem;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.4rem;
+  padding: 0.6rem;
+  flex: 1;
+  align-content: center;
 }
 
 .color {
-  width: 3.4rem;
-  height: 3.4rem;
-  border-radius: 50%;
-  border: 0.25rem solid rgba(255, 255, 255, 0.25);
-  transition: transform 0.15s var(--ease-out);
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s var(--ease-out);
 }
 
+/* Picked colour: white gap + Astragraphia magenta ring. */
 .color[aria-pressed="true"] {
-  border-color: #fff;
   transform: scale(1.12);
-  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 0 0 0.16rem #fff,
+    0 0 0 0.36rem #c6007e;
 }
 
 .brushes {
   display: flex;
-  gap: 0.3rem;
-  padding: 0.3rem;
-  border-radius: 999px;
-  background: rgba(14, 3, 20, 0.45);
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.35rem;
 }
 
 .brush {
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 2.9rem;
+  height: 2.9rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -905,11 +971,12 @@
 .brush i {
   display: block;
   border-radius: 50%;
-  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 .brush[aria-pressed="true"] {
-  background: var(--magenta);
+  background: #fbe6f2;
+  box-shadow: inset 0 0 0 0.16rem #c6007e;
 }
 
 .notice {
@@ -952,7 +1019,7 @@
   border-radius: 1.6rem;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 2rem 5rem rgba(26, 2, 14, 0.45);
+  box-shadow: 0 2rem 5rem rgba(2, 10, 26, 0.45);
 }
 
 .scanCard img {
@@ -1050,7 +1117,7 @@
   object-fit: cover;
   border-radius: 1.2rem;
   background: #fff;
-  box-shadow: 0 1.2rem 3rem rgba(26, 2, 14, 0.4);
+  box-shadow: 0 1.2rem 3rem rgba(2, 10, 26, 0.4);
 }
 
 .styleName {
@@ -1077,7 +1144,7 @@
   border-radius: 1.8rem;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 2rem 5rem rgba(26, 2, 14, 0.45);
+  box-shadow: 0 2rem 5rem rgba(2, 10, 26, 0.45);
 }
 
 .artSketch,
@@ -1155,7 +1222,7 @@
   overflow: hidden;
   background: #fff;
   border: 0.5rem solid #fff;
-  box-shadow: 0 1.6rem 4rem rgba(26, 2, 14, 0.45);
+  box-shadow: 0 1.6rem 4rem rgba(2, 10, 26, 0.45);
 }
 
 .thumbCircle img {
@@ -1218,7 +1285,7 @@
 }
 
 .sheetB {
-  background: linear-gradient(170deg, #6c1d45, #2a0a1b);
+  background: linear-gradient(180deg, #123b7c, #071a33);
   display: flex;
   align-items: center;
   justify-content: center;
