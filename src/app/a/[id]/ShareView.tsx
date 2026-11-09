@@ -133,6 +133,13 @@ export function ShareView({ art, link }: { art: PublicArtwork; link: string }) {
         )}
       </div>
 
+      {/* Event signature: Expert Forum logo + tagline, as on the event poster. */}
+      <div className={s.event} data-in>
+        <img src={`${SHARE_PATH}/brand/expert-forum-logo-white.png`} alt="Expert Forum" />
+        <b>{EVENT.tagline}</b>
+        <span>{EVENT.subline}</span>
+      </div>
+
       <footer className={s.foot} data-in>
         <strong>{EVENT.fullName}</strong>
         <br />
