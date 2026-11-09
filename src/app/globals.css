@@ -27,7 +27,8 @@
   --white: #ffffff;
 
   --font-sans: "Google Sans", system-ui, sans-serif;
-  --font-hand: "Astoria", cursive;
+  /* --font-hand (Astoria) comes from next/font/local in layout.tsx; defining
+     it here would override that variable with a family name that does not exist. */
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 22px;

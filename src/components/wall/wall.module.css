@@ -99,9 +99,9 @@
   font-style: normal;
   font-family: var(--font-hand);
   color: var(--gold);
-  font-size: 1.15em;
+  font-size: 1.55em; /* Astoria script has a small x-height */
   letter-spacing: 0;
-  transform: rotate(-6deg) translateY(-0.05em);
+  transform: rotate(-6deg) translateY(0.02em);
   display: inline-block;
 }
 
@@ -210,7 +210,7 @@
 }
 
 .caption span {
-  font-size: 2.5vh;
+  font-size: 3.1vh;
   overflow: hidden;
   text-overflow: ellipsis;
 }
