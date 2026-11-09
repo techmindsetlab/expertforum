@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPublicArtwork, toPublic } from "@/lib/artworks";
 import { EVENT } from "@/lib/config";
+import { publicOrigin, shareUrl } from "@/lib/http";
 import { ShareView } from "./ShareView";
 
 export const dynamic = "force-dynamic";
@@ -14,8 +15,9 @@ export async function generateMetadata(props: PageProps<"/a/[id]">): Promise<Met
   return {
     title,
     description: `Sketsa tangan yang dilukis ulang oleh AI di booth Astragraphia & agit, ${EVENT.short}.`,
-    // Absolute (this app's own origin via metadataBase) so the card loads wherever the page is proxied.
-    openGraph: { title, images: [{ url: `/api/art/${art.id}/card`, width: 1080, height: 1350 }] },
+    // Branded preview (public/og.jpg); absolute via metadataBase, so it loads wherever the page is proxied.
+    openGraph: { title, type: "website", images: [{ url: "/og.jpg", width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image", title, images: ["/og.jpg"] },
   };
 }
 
@@ -23,5 +25,5 @@ export default async function SharePage(props: PageProps<"/a/[id]">) {
   const { id } = await props.params;
   const art = await getPublicArtwork(id);
   if (!art) notFound();
-  return <ShareView art={toPublic(art)} />;
+  return <ShareView art={toPublic(art)} link={shareUrl(art.id, publicOrigin())} />;
 }

@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   description: "Live Sketch → AI → Digital Wall. Gambar di tablet, AI melukis ulang, karyamu tampil di layar besar.",
   applicationName: "Expert Forum Live Sketch",
   icons: { icon: "/brand/astra70-logo.png" },
+  // Link previews (WhatsApp, LinkedIn, …): src/assets/og.webp cropped to 1200 × 630 as public/og.jpg.
+  openGraph: { type: "website", siteName: "print your mark · Expert Forum 2026", images: [{ url: "/og.jpg", width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", images: ["/og.jpg"] },
 };
 
 export const viewport: Viewport = {

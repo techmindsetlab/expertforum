@@ -12,11 +12,13 @@ import { Ornament } from "@/components/Ornament";
 import s from "./share.module.css";
 
 /** Mobile page behind the QR: the sketch replays, then the AI print develops. */
-export function ShareView({ art }: { art: PublicArtwork }) {
+/** `link`: the page's public address (the Nada Kreatif Pro URL in production), copied and shared. */
+export function ShareView({ art, link }: { art: PublicArtwork; link: string }) {
   const en = art.locale === "en";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const [showSketch, setShowSketch] = useState(false);
+  const [copied, setCopied] = useState(false);
   const no = `#${String(art.number).padStart(3, "0")}`;
 
   useEffect(() => {
@@ -62,8 +64,14 @@ export function ShareView({ art }: { art: PublicArtwork }) {
     };
   }, [art.id]);
 
+  /** Copies the link (always), then opens the phone's share sheet where there is one. */
   const share = async () => {
-    const url = location.href;
+    const url = link;
+    if (await copyText(url)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    }
+    if (!navigator.share) return;
     try {
       const blob = await fetch(`${SHARE_PATH}/api/art/${art.id}/card`).then((r) => r.blob());
       const file = new File([blob], `print-your-mark-${art.number}.png`, { type: "image/png" });
@@ -115,8 +123,8 @@ export function ShareView({ art }: { art: PublicArtwork }) {
         <a className={s.primary} href={`${SHARE_PATH}/api/art/${art.id}/card?download`} download>
           {en ? "Download artwork" : "Unduh karya"}
         </a>
-        <button className={s.secondary} onClick={share}>
-          {en ? "Share" : "Bagikan"}
+        <button className={s.secondary} onClick={share} data-copied={copied || undefined} aria-live="polite">
+          {copied ? (en ? "Link copied ✓" : "Link disalin ✓") : en ? "Share" : "Bagikan"}
         </button>
         {art.sketch && (
           <button className={s.ghost} onClick={() => setShowSketch((v) => !v)}>
@@ -132,4 +140,25 @@ export function ShareView({ art }: { art: PublicArtwork }) {
       </footer>
     </main>
   );
+}
+
+/** Clipboard API where allowed (https), a hidden textarea + execCommand otherwise. */
+async function copyText(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch {}
+    ta.remove();
+    return ok;
+  }
 }

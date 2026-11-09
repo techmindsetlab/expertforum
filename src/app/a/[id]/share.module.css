@@ -157,6 +157,11 @@
   color: var(--plum-ink);
 }
 
+.secondary[data-copied] {
+  background: rgba(37, 166, 225, 0.28);
+  border-color: rgba(143, 211, 255, 0.7);
+}
+
 .secondary {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.22);
