@@ -6,8 +6,8 @@ import { getStroke } from "perfect-freehand";
  * point = [x, y, pressure, tMs]
  */
 export type StrokePoint = [number, number, number, number];
-/** Drawing tools, as in Canva's Draw panel (no eraser). Strokes without a tool are "pen". */
-export type Tool = "pen" | "marker" | "glow" | "highlighter";
+/** Drawing tools, as in Canva's Draw panel: pen and highlighter (no eraser). Strokes without a tool are "pen". */
+export type Tool = "pen" | "highlighter";
 /** `pen`: drawn with the S Pen (real pressure), not a finger. */
 export type Stroke = { color: string; size: number; pen: boolean; tool?: Tool; points: StrokePoint[] };
 export type Drawing = { v: 1; strokes: Stroke[] };
@@ -43,25 +43,19 @@ export const PALETTE = [
 /** Base stroke width per tool, relative to the canvas width. */
 export const TOOLS: { id: Tool; size: number }[] = [
   { id: "pen", size: 0.012 },
-  { id: "marker", size: 0.026 },
-  { id: "glow", size: 0.017 },
   { id: "highlighter", size: 0.05 },
 ];
 
 /** Small / medium / large, as multipliers of the tool's base width. */
 export const SIZE_STEPS = [0.6, 1, 1.7] as const;
 
-export function strokeOutline(stroke: Stroke, scale: number, upto = stroke.points.length, widthMul = 1) {
+export function strokeOutline(stroke: Stroke, scale: number, upto = stroke.points.length) {
   const pts = stroke.points.slice(0, upto).map(([x, y, p]) => [x * scale, y * scale, p]);
-  const size = stroke.size * scale * widthMul;
+  const size = stroke.size * scale;
   const last = upto >= stroke.points.length;
   switch (stroke.tool ?? "pen") {
-    case "marker": // even, round felt tip
-      return getStroke(pts, { size, thinning: 0.08, smoothing: 0.6, streamline: 0.45, simulatePressure: false, last, start: { cap: true }, end: { cap: true } });
     case "highlighter": // wide, flat, see-through
       return getStroke(pts, { size, thinning: 0, smoothing: 0.65, streamline: 0.55, simulatePressure: false, last, start: { cap: true }, end: { cap: true } });
-    case "glow": // neon tube: steady width, slight taper at the end
-      return getStroke(pts, { size, thinning: stroke.pen ? 0.15 : 0, smoothing: 0.6, streamline: 0.5, simulatePressure: false, last, start: { cap: true }, end: { cap: true } });
     default: // pen: pressure and tapered ends
       return getStroke(pts, {
         size,
@@ -74,13 +68,6 @@ export function strokeOutline(stroke: Stroke, scale: number, upto = stroke.point
         end: { taper: stroke.pen ? size * 1.5 : 0, cap: true },
       });
   }
-}
-
-/** Mix a #rrggbb colour with white (k = 0..1 share of white). */
-function tint(hex: string, k: number) {
-  const n = parseInt(hex.slice(1, 7), 16);
-  const mix = (c: number) => Math.round(c + (255 - c) * k);
-  return `rgb(${mix(n >> 16)}, ${mix((n >> 8) & 255)}, ${mix(n & 255)})`;
 }
 
 export function outlineToPath(outline: number[][]): Path2D {
@@ -99,28 +86,10 @@ export function outlineToPath(outline: number[][]): Path2D {
 export function drawStroke(ctx: CanvasRenderingContext2D, stroke: Stroke, scale: number, upto?: number) {
   const outline = strokeOutline(stroke, scale, upto);
   if (!outline.length) return;
-  const path = outlineToPath(outline);
-  const tool = stroke.tool ?? "pen";
   ctx.save();
   ctx.fillStyle = stroke.color;
-  if (tool === "highlighter") {
-    ctx.globalAlpha = 0.42;
-    ctx.fill(path);
-  } else if (tool === "glow") {
-    // Coloured halo (shadowBlur ignores the transform, so scale it by hand) + a light core.
-    ctx.shadowColor = stroke.color;
-    ctx.shadowBlur = stroke.size * scale * 1.9 * (ctx.getTransform().a || 1);
-    ctx.fill(path);
-    ctx.fill(path);
-    ctx.shadowBlur = 0;
-    const core = strokeOutline(stroke, scale, upto, 0.42);
-    if (core.length) {
-      ctx.fillStyle = tint(stroke.color, 0.78);
-      ctx.fill(outlineToPath(core));
-    }
-  } else {
-    ctx.fill(path);
-  }
+  if (stroke.tool === "highlighter") ctx.globalAlpha = 0.42;
+  ctx.fill(outlineToPath(outline));
   ctx.restore();
 }
 

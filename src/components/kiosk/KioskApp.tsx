@@ -413,6 +413,7 @@ export default function KioskApp() {
     <div
       ref={rootRef}
       className={s.root}
+      data-drawing={step === "draw" || undefined}
       onPointerDown={() => {
         unlockSfx(KIOSK_SFX);
         if (idle != null) setIdle(null);
@@ -910,25 +911,6 @@ function PenArt({ kind, color }: { kind: Tool; color: string }) {
     </>
   );
   switch (kind) {
-    case "marker":
-      return (
-        <svg viewBox="0 0 48 120" aria-hidden>
-          <path d="M10 46 L38 46 L32 26 L16 26 Z" {...cone} />
-          <path d="M17 26 L31 26 L31 16 Q24 3 17 16 Z" {...tip} />
-          {body(10, 28)}
-        </svg>
-      );
-    case "glow":
-      return (
-        <svg viewBox="0 0 48 120" aria-hidden>
-          <circle cx="24" cy="11" r="11" fill={color} opacity="0.28" />
-          <circle cx="24" cy="11" r="7" fill={color} opacity="0.45" />
-          <path d="M10 46 L38 46 L28.5 18 L19.5 18 Z" {...cone} />
-          <path d="M19.5 18 L28.5 18 L24 5 Z" {...tip} />
-          <path d="M23 15 L25 15 L24 9 Z" fill="#fff" opacity="0.9" />
-          {body(10, 28)}
-        </svg>
-      );
     case "highlighter":
       return (
         <svg viewBox="0 0 48 120" aria-hidden>

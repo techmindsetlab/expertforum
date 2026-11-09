@@ -96,6 +96,12 @@
   }
 }
 
+/* Drawing: hold the background still (the glass panels blur what is behind). */
+.root[data-drawing] .glow,
+.root[data-drawing] .brandBar {
+  animation-play-state: paused;
+}
+
 /* Main gradient as a thin brand bar along the top edge, flowing. */
 .brandBar {
   position: absolute;
@@ -510,30 +516,63 @@
 .fields {
   margin-top: 1.8rem;
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
+/* Underline fields: a quiet line at rest; the active field's line grows in
+   and carries the Astragraphia main gradient, flowing slowly on a loop. */
 .field {
   position: relative;
   display: block;
   width: 100%;
   text-align: left;
-  padding: 1rem 1.4rem 1.1rem;
-  border-radius: 1.3rem;
-  background: rgba(5, 18, 40, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.12);
+  padding: 0.6rem 0.1rem 0.9rem;
+  background: none;
+  border: 0;
+}
+
+.field::before,
+.field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.field::before {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.field::after {
+  height: 0.3rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6c1d45, #c6007e, #de7c00, #c6007e, #6c1d45);
+  background-size: 200% 100%;
+  box-shadow: 0 0.35rem 1.4rem rgba(198, 0, 126, 0.4);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
   transition:
-    border-color 0.2s,
-    background 0.2s;
+    transform 0.6s var(--ease-out),
+    opacity 0.3s;
+  animation: flow 7s linear infinite;
 }
 
-.field[data-active="true"] {
-  border-color: #fff;
-  background: rgba(5, 18, 40, 0.85);
+.field[data-active="true"]::after {
+  transform: scaleX(1);
+  opacity: 1;
 }
 
-.field[data-invalid="true"] {
-  border-color: #ff7aa8;
+.field[data-invalid="true"]::before {
+  height: 0.25rem;
+  background: #ff7aa8;
+}
+
+.field[data-invalid="true"]::after {
+  opacity: 0;
 }
 
 .fieldLabel {
@@ -868,13 +907,19 @@
   gap: 0.9rem;
 }
 
-/* White panels like Canva's draw sidebar, so every colour (black too) reads. */
+/* Glass panels: 20% white over the blue, blurred. The glows behind pause
+   while drawing, so the blur is not recomputed every frame on the tablet. */
 .tools,
 .colors,
 .brushes {
   border-radius: 1.2rem;
-  background: #fff;
-  box-shadow: 0 0.8rem 2rem rgba(2, 10, 26, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    0 0.8rem 2rem rgba(2, 10, 26, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* Pens stand in a tray; the picked one rises with a little bounce. */
@@ -888,7 +933,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 4rem;
+  width: 5rem;
 }
 
 .penWin {
@@ -905,7 +950,7 @@
   flex: none;
   transform: translate3d(0, 2.6rem, 0);
   transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 0.25rem 0.35rem rgba(11, 31, 58, 0.22));
+  filter: drop-shadow(0 0.25rem 0.4rem rgba(2, 10, 26, 0.45));
 }
 
 .tool[aria-pressed="true"] .penWin svg {
@@ -915,16 +960,16 @@
 .toolName {
   width: 100%;
   padding: 0.35rem 0 0.5rem;
-  border-top: 1px solid #e3e6ec;
-  font-size: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.85rem;
   font-weight: 700;
   text-align: center;
   white-space: nowrap;
-  color: #7a8597;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .tool[aria-pressed="true"] .toolName {
-  color: #c6007e;
+  color: #fff;
 }
 
 .colors {
@@ -940,7 +985,7 @@
   aspect-ratio: 1;
   min-width: 0;
   border-radius: 0.55rem;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   transition: transform 0.18s var(--ease-out);
 }
 
@@ -971,7 +1016,7 @@
 .brush i {
   display: block;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
 }
 
 .brush[aria-pressed="true"] {
