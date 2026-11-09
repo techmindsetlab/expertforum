@@ -417,8 +417,17 @@ export default function KioskApp() {
       }}
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* Expert Forum ornament: frozen while drawing (the pen needs the tablet's CPU), quicker waves while the AI paints. */}
-      <Ornament preset="kiosk" className={s.shapes} paused={step === "draw"} tempo={step === "generating" ? 2.4 : 1} />
+      <div className={s.bg}>
+        <div className={`${s.glow} ${s.glowMagenta}`} />
+        <div className={`${s.glow} ${s.glowOrange}`} />
+        <div className={`${s.glow} ${s.glowPink}`} />
+      </div>
+      <div className={s.brandBar} />
+      {/* Expert Forum ornament: full strength on the open screens (start, AI painting, done), dimmed behind forms,
+          the canvas and the review; frozen while drawing (the pen needs the tablet's CPU), quicker while the AI paints. */}
+      <div className={s.shapesWrap} data-quiet={!["attract", "generating", "success"].includes(step) || undefined}>
+        <Ornament preset="kiosk" className={s.shapes} paused={step === "draw"} tempo={step === "generating" ? 2.4 : 1} />
+      </div>
       <div className={s.grain} />
 
       <div className={s.frame}>

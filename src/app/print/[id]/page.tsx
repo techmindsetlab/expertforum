@@ -59,11 +59,7 @@ export default async function PrintPage(props: PageProps<"/print/[id]">) {
               </div>
               <div className={s.name}>{art.name}</div>
               <div className={s.desc}>
-                <div className={s.caption}>
-                  A hand sketch, reimagined by AI
-                  <br />
-                  {EVENT.short} · {EVENT.venue}
-                </div>
+                <div className={s.caption}>A hand sketch, reimagined by AI</div>
                 <div className={s.date}>
                   <FitLine className={s.dateText} text={date} fill />
                 </div>
@@ -72,6 +68,19 @@ export default async function PrintPage(props: PageProps<"/print/[id]">) {
             <div className={s.qr}>
               <div className={s.qrCode} dangerouslySetInnerHTML={{ __html: qr }} />
               <span>DOWNLOAD YOUR ART</span>
+            </div>
+          </div>
+          {/* Event: tagline left, day · date · time and venue right. */}
+          <div className={s.event}>
+            <div className={s.eventTag}>
+              <b>{EVENT.tagline}</b>
+              <span>{EVENT.subline}</span>
+            </div>
+            <div className={s.eventWhen}>
+              <b>
+                {EVENT.day} · {EVENT.dateShort} · {EVENT.time}
+              </b>
+              <span>{EVENT.venue}</span>
             </div>
           </div>
           <div className={s.printedBy}>

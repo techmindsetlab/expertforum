@@ -6,19 +6,131 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
+  overflow: clip; /* never scrolls, not even from focus or a hardware key */
   font-size: min(2vw, 1.25vh);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   color: #fff;
-  /* Expert Forum navy with a royal-blue glow (expertforum2026.com KV). */
-  background:
-    radial-gradient(110% 55% at 85% -8%, rgba(32, 64, 218, 0.85) 0%, rgba(32, 64, 218, 0) 62%),
-    radial-gradient(90% 45% at 0% 108%, rgba(3, 128, 225, 0.55) 0%, rgba(3, 128, 225, 0) 60%),
-    linear-gradient(180deg, #123b7c 0%, #0b1f3a 48%, #071a33 100%);
+
+  /* Astragraphia primary colours (brand guideline) + the main gradient
+     burgundy → magenta → orange. The kiosk sits in the Astragraphia & agit
+     booth, so it wears their colours; the Expert Forum ornament stays on top. */
+  --ag-burgundy: #6c1d45;
+  --ag-magenta: #c6007e;
+  --ag-orange: #de7c00;
+  --ag-gray: #d8dad9;
+  --ag-gradient: linear-gradient(100deg, #6c1d45 0%, #c6007e 34%, #de7c00 100%);
+  --magenta: var(--ag-magenta);
+  --plum-ink: #3b0f26;
+
+  background: linear-gradient(170deg, #7a2050 0%, #5a1638 38%, #3e0f28 72%, #2a0a1b 100%);
+}
+
+/* Moving light from the main gradient: a magenta and an orange glow drift
+   slowly over the burgundy (transform-only, cheap on the tablet GPU). The
+   wrapper clips them so they never add scrollable area to the kiosk. */
+.bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  width: 115vmax;
+  height: 115vmax;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.glowMagenta {
+  left: -45vmax;
+  top: -40vmax;
+  background: radial-gradient(closest-side, rgba(198, 0, 126, 0.78), rgba(198, 0, 126, 0.32) 55%, rgba(198, 0, 126, 0));
+  animation: glowMagenta 19s ease-in-out infinite alternate;
+}
+
+.glowOrange {
+  right: -50vmax;
+  bottom: -55vmax;
+  background: radial-gradient(closest-side, rgba(222, 124, 0, 0.72), rgba(222, 124, 0, 0.28) 55%, rgba(222, 124, 0, 0));
+  animation: glowOrange 23s ease-in-out infinite alternate;
+}
+
+.glowPink {
+  width: 70vmax;
+  height: 70vmax;
+  left: 10vmax;
+  top: 35vmax;
+  background: radial-gradient(closest-side, rgba(232, 60, 140, 0.4), rgba(232, 60, 140, 0));
+  animation: glowPink 29s ease-in-out infinite alternate;
+}
+
+@keyframes glowMagenta {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(22vmax, 18vmax, 0) scale(1.18);
+  }
+}
+
+@keyframes glowOrange {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  to {
+    transform: translate3d(-26vmax, -14vmax, 0) scale(0.95);
+  }
+}
+
+@keyframes glowPink {
+  from {
+    transform: translate3d(-12vmax, 8vmax, 0) scale(0.9);
+  }
+  to {
+    transform: translate3d(18vmax, -16vmax, 0) scale(1.2);
+  }
+}
+
+/* Main gradient as a thin brand bar along the top edge, flowing. */
+.brandBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.55rem;
+  z-index: 2;
+  background: linear-gradient(100deg, #6c1d45, #c6007e, #de7c00, #c6007e, #6c1d45);
+  background-size: 200% 100%;
+  animation: flow 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes flow {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
 }
 
 /* Animated Expert Forum ornament (canvas) behind everything. */
+.shapesWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.shapesWrap[data-quiet] {
+  opacity: 0.16;
+}
+
 .shapes {
   position: absolute;
   inset: 0;
@@ -37,14 +149,6 @@
   pointer-events: none;
 }
 
-@keyframes drift {
-  from {
-    transform: scale(1.08) rotate(-1.5deg) translate3d(-1.5%, -1%, 0);
-  }
-  to {
-    transform: scale(1.18) rotate(1.5deg) translate3d(1.5%, 1.5%, 0);
-  }
-}
 
 .frame {
   position: relative;
@@ -103,7 +207,7 @@
   display: flex;
   padding: 0.3rem;
   border-radius: 999px;
-  background: rgba(5, 18, 40, 0.35);
+  background: rgba(40, 6, 26, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
@@ -181,21 +285,66 @@
     opacity 0.2s;
 }
 
+/* Primary buttons wear the main gradient; the colour flows and a light sheen
+   sweeps across every few seconds. */
+.btnPrimary,
+.cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(100deg, #6c1d45 0%, #c6007e 30%, #de7c00 62%, #c6007e 100%);
+  background-size: 180% 100%;
+  color: #fff;
+  animation: btnFlow 6s ease-in-out infinite alternate;
+}
+
+/* Slides the gradient within its own width: no seam, burgundy ↔ orange. */
+@keyframes btnFlow {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.btnPrimary::after,
+.cta::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: -45%;
+  width: 35%;
+  z-index: -1;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+  transform: translate3d(0, 0, 0) skewX(-20deg);
+  animation: sheen 4.2s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes sheen {
+  0%,
+  55% {
+    transform: translate3d(0, 0, 0) skewX(-20deg);
+  }
+  100% {
+    transform: translate3d(480%, 0, 0) skewX(-20deg);
+  }
+}
+
 .btnPrimary {
   margin-left: auto;
-  background: var(--magenta);
-  color: #fff;
   box-shadow:
-    0 0.9rem 2.4rem rgba(3, 128, 225, 0.45),
+    0 0.9rem 2.4rem rgba(198, 0, 126, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
+/* "Show on the wall": the same gradient, warmer glow. */
 .btnPrimary.gold {
-  background: var(--gold);
-  color: var(--plum-ink);
   box-shadow:
-    0 0.9rem 2.4rem rgba(251, 165, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 0.9rem 2.6rem rgba(222, 124, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .btn {
@@ -219,6 +368,11 @@
   opacity: 0.35;
   box-shadow: none;
   pointer-events: none;
+}
+
+.btnPrimary:disabled,
+.btnPrimary:disabled::after {
+  animation: none;
 }
 
 .btnPrimary svg,
@@ -286,18 +440,20 @@
   height: 5.4rem;
   padding: 0 2.4rem 0 2.8rem;
   border-radius: 999px;
-  background: #fff;
-  color: var(--plum-ink);
   font-size: 1.6rem;
   font-weight: 700;
-  box-shadow: 0 1.2rem 3rem rgba(20, 0, 20, 0.35);
-  animation: pulse 2.4s ease-in-out infinite;
+  box-shadow:
+    0 1.2rem 3rem rgba(198, 0, 126, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  animation:
+    btnFlow 6s ease-in-out infinite alternate,
+    pulse 2.4s ease-in-out infinite;
 }
 
 .cta svg {
   width: 1.8rem;
   height: 1.8rem;
-  color: var(--magenta);
+  color: #fff;
 }
 
 @keyframes pulse {
@@ -364,7 +520,7 @@
   text-align: left;
   padding: 1rem 1.4rem 1.1rem;
   border-radius: 1.3rem;
-  background: rgba(14, 3, 20, 0.5);
+  background: rgba(30, 4, 20, 0.72);
   border: 2px solid rgba(255, 255, 255, 0.12);
   transition:
     border-color 0.2s,
@@ -373,7 +529,7 @@
 
 .field[data-active="true"] {
   border-color: #fff;
-  background: rgba(14, 3, 20, 0.7);
+  background: rgba(30, 4, 20, 0.86);
 }
 
 .field[data-invalid="true"] {
@@ -618,7 +774,7 @@
   height: 2.8rem;
   padding: 0 1.1rem 0 0.9rem;
   border-radius: 999px;
-  background: rgba(5, 18, 40, 0.38);
+  background: rgba(40, 6, 26, 0.42);
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 1.6rem;
   font-weight: 700;
@@ -649,7 +805,9 @@
 }
 
 .btnPrimary[data-pulse] {
-  animation: tick 1.2s ease-in-out infinite;
+  animation:
+    btnFlow 6s ease-in-out infinite alternate,
+    tick 1.2s ease-in-out infinite;
 }
 
 .canvasWrap[data-disabled] {
@@ -675,7 +833,7 @@
   overflow: hidden;
   background: #fff;
   box-shadow:
-    0 2rem 5rem rgba(2, 10, 26, 0.45),
+    0 2rem 5rem rgba(26, 2, 14, 0.45),
     0 0 0 0.4rem rgba(255, 255, 255, 0.12);
 }
 
@@ -794,7 +952,7 @@
   border-radius: 1.6rem;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 2rem 5rem rgba(2, 10, 26, 0.45);
+  box-shadow: 0 2rem 5rem rgba(26, 2, 14, 0.45);
 }
 
 .scanCard img {
@@ -809,7 +967,7 @@
   right: 0;
   top: 0;
   height: 22%;
-  background: linear-gradient(180deg, rgba(3, 128, 225, 0) 0%, rgba(3, 128, 225, 0.28) 85%, #0380e1 100%);
+  background: linear-gradient(180deg, rgba(198, 0, 126, 0) 0%, rgba(198, 0, 126, 0.26) 80%, #de7c00 100%);
   animation: scan 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
@@ -841,7 +999,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #8fd3ff;
+  color: #ffc27a;
 }
 
 .genTimer {
@@ -892,7 +1050,7 @@
   object-fit: cover;
   border-radius: 1.2rem;
   background: #fff;
-  box-shadow: 0 1.2rem 3rem rgba(2, 10, 26, 0.4);
+  box-shadow: 0 1.2rem 3rem rgba(26, 2, 14, 0.4);
 }
 
 .styleName {
@@ -919,7 +1077,7 @@
   border-radius: 1.8rem;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 2rem 5rem rgba(2, 10, 26, 0.45);
+  box-shadow: 0 2rem 5rem rgba(26, 2, 14, 0.45);
 }
 
 .artSketch,
@@ -997,7 +1155,7 @@
   overflow: hidden;
   background: #fff;
   border: 0.5rem solid #fff;
-  box-shadow: 0 1.6rem 4rem rgba(2, 10, 26, 0.45);
+  box-shadow: 0 1.6rem 4rem rgba(26, 2, 14, 0.45);
 }
 
 .thumbCircle img {
@@ -1056,11 +1214,11 @@
 }
 
 .sheetA {
-  background: var(--magenta);
+  background: linear-gradient(100deg, #6c1d45 0%, #c6007e 40%, #de7c00 100%);
 }
 
 .sheetB {
-  background: linear-gradient(180deg, #123b7c, #071a33);
+  background: linear-gradient(170deg, #6c1d45, #2a0a1b);
   display: flex;
   align-items: center;
   justify-content: center;

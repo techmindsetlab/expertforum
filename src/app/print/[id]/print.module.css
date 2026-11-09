@@ -6,7 +6,7 @@
   --pad-top: 12mm;
   --header: 12mm;
   --gap: 4mm;
-  --footer: 64mm;
+  --footer: 71mm;
   position: relative;
   width: 210mm;
   height: 297mm;
@@ -97,7 +97,8 @@
   white-space: nowrap;
 }
 
-/* Footer: campaign + name + caption + date beside the QR, then the Apeos badge. */
+/* Footer: campaign + name + caption + date beside the QR, the event block,
+   then the Apeos badge. */
 .footer {
   position: absolute;
   left: 0;
@@ -214,11 +215,65 @@
   display: block;
 }
 
+/* Event block: Expert Forum tagline left, when + where right. */
+.event {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6mm;
+  margin-top: 2.6mm;
+  padding-top: 2.6mm;
+  border-top: 0.3mm solid #d6deea;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.eventTag,
+.eventWhen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8mm;
+}
+
+.eventWhen {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.eventTag b {
+  font-size: 3.9mm;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: #005aaa;
+}
+
+.eventTag span {
+  font-size: 2.35mm;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #0b1f3a;
+}
+
+.eventWhen b {
+  font-size: 3.1mm;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: #0b1f3a;
+}
+
+.eventWhen span {
+  font-size: 2.35mm;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #55657c;
+}
+
 /* "Printed by" badge, outlined like the Apeos co-branding tag. */
 .printedBy {
   flex: none;
   height: 9mm;
-  margin-top: 3mm;
+  margin-top: 2.6mm;
   display: flex;
   align-items: center;
   justify-content: center;

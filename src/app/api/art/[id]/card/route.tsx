@@ -54,7 +54,7 @@ export async function GET(req: Request, ctx: RouteContext<"/api/art/[id]/card">)
             </div>
           </div>
           <div style={{ display: "flex", fontSize: 22, color: "#55657c", marginTop: 6 }}>
-            {`${EVENT.short} · ${EVENT.dates[en ? "en" : "id"]} · ${EVENT.venue}`}
+            {`${EVENT.short} · ${EVENT.dates[en ? "en" : "id"]} · ${EVENT.venueShort}`}
           </div>
         </div>
       </div>

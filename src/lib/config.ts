@@ -2,9 +2,15 @@
 export const EVENT = {
   short: "Expert Forum 2026",
   fullName: "Astra Expert Forum 2026",
+  tagline: "15 Years of Astra Expert",
+  subline: "Strengthen Value Creation for Business Impact",
   theme: "15 Years of Astra Expert: Strengthen Value Creation for Business Impact",
-  dates: { id: "11 November 2026", en: "11 November 2026" },
-  venue: "Menara Astra",
+  dates: { id: "Rabu, 11 November 2026", en: "Wednesday, 11 November 2026" },
+  day: "Wednesday",
+  dateShort: "11.11.2026",
+  time: "07:30 – 13:00 WIB",
+  venue: "Catur Dharma Hall 5th Floor, Menara Astra",
+  venueShort: "Menara Astra",
   campaign: "print your mark",
 } as const;
 
