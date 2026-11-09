@@ -16,8 +16,12 @@ Konsep dan alur sama dengan *print your mark* WCCE 2026. Tampilan memakai KV Exp
   ornamen yang mekar saat karya baru tampil di wall. Di kiosk ornamen berhenti saat
   menggambar dan bergerak lebih cepat saat AI melukis.
 
-**Production:** belum ada; project Vercel + database Neon menyusul. Petunjuk di bawah masih
-memakai URL WCCE, ganti dengan URL Expert Forum setelah deploy.
+**Production:** https://expertforum.vercel.app (Vercel `tech-mindsetlabs-projects/expertforum`,
+deploy otomatis dari GitHub `main`, region sin1). Data di project Neon yang sama dengan
+WCCE (`sparkling-mud-92936396`, branch `production`) tetapi terpisah: database
+`expertforum` dan bucket `expertforum`. Nilai env production ada di
+`.env.vercel-production` (tidak di-commit). Petunjuk di bawah masih memakai URL WCCE; ganti
+`astragraphia-rho.vercel.app` dengan `expertforum.vercel.app`.
 
 ---
 

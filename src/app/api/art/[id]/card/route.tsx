@@ -9,7 +9,7 @@ import { absolute } from "@/lib/http";
 const fontsP = Promise.all([
   readFile(path.join(process.cwd(), "src", "assets", "fonts", "GoogleSans-Regular.ttf")),
   readFile(path.join(process.cwd(), "src", "assets", "fonts", "GoogleSans-Bold.ttf")),
-  readFile(path.join(process.cwd(), "src", "assets", "fonts", "Caveat-Bold.ttf")),
+  readFile(path.join(process.cwd(), "src", "assets", "fonts", "Astoria.otf")),
 ]);
 const logosP = Promise.all([
   readFile(path.join(process.cwd(), "public", "brand", "astragraphia-wordmark.png")),
@@ -35,14 +35,14 @@ export async function GET(req: Request, ctx: RouteContext<"/api/art/[id]/card">)
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", height: 56 }}>
           <div style={{ display: "flex", alignItems: "baseline", fontSize: 38, fontWeight: 700, letterSpacing: -1.5 }}>
             print
-            <span style={{ fontFamily: "Caveat", color: "#0380e1", fontSize: 46, margin: "0 10px" }}>your</span>
+            <span style={{ fontFamily: "Astoria", color: "#0380e1", fontSize: 46, margin: "0 10px" }}>your</span>
             mark
           </div>
           <div style={{ fontSize: 44, fontWeight: 700, color: "#2040da", letterSpacing: -1 }}>{no}</div>
         </div>
         <div style={{ position: "relative", display: "flex", width: 1000, height: 1000, borderRadius: 18, overflow: "hidden", background: "#FBF8F3" }}>
           <img src={absolute(art.artMdUrl ?? art.artUrl ?? "", origin)} width={1000} height={1000} style={{ objectFit: "cover" }} />
-          <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: "Caveat", fontSize: 92, color: "#0b1f3a", transform: "rotate(-4deg)" }}>{art.name}</div>
+          <div style={{ position: "absolute", right: 40, bottom: 26, fontFamily: "Astoria", fontSize: 92, color: "#0b1f3a", transform: "rotate(-4deg)" }}>{art.name}</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1, paddingTop: 16 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -65,7 +65,7 @@ export async function GET(req: Request, ctx: RouteContext<"/api/art/[id]/card">)
       fonts: [
         { name: "Google Sans", data: regular, weight: 400, style: "normal" },
         { name: "Google Sans", data: bold, weight: 700, style: "normal" },
-        { name: "Caveat", data: hand, weight: 700, style: "normal" },
+        { name: "Astoria", data: hand, weight: 400, style: "normal" },
       ],
       headers: {
         "Cache-Control": "public, max-age=3600, s-maxage=86400",

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Google_Sans } from "next/font/google";
+import { Google_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const sans = Google_Sans({
@@ -10,10 +11,14 @@ const sans = Google_Sans({
   adjustFontFallback: false,
 });
 
-const hand = Caveat({
+// Handwriting ("your", names on the wall and kiosk): Astoria. It has one
+// weight; it is declared for 400 and 700 so bold styles never get a faux bold.
+const hand = localFont({
+  src: [
+    { path: "../assets/fonts/Astoria.otf", weight: "400", style: "normal" },
+    { path: "../assets/fonts/Astoria.otf", weight: "700", style: "normal" },
+  ],
   variable: "--font-hand",
-  weight: ["700"],
-  subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
