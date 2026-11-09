@@ -13,12 +13,13 @@ export default function Home() {
     <main className={s.main}>
       <div className={s.head}>
         <img src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" className={s.logo} />
-        <img src="/brand/wcce-mark-white.png" alt="WCCE 2026" className={s.mark} />
+        <img src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" className={s.mark} />
+        <img src="/brand/agit-logo-white.png" alt="agit" className={s.agit} />
       </div>
       <h1 className={s.title}>
         print <span className="signature">your</span> mark
       </h1>
-      <p className={s.sub}>Live Sketch → AI → Digital Wall · WCCE 2026</p>
+      <p className={s.sub}>Live Sketch → AI → Digital Wall · Expert Forum 2026</p>
       <nav className={s.grid}>
         {LINKS.map((l) => (
           <Link key={l.href} href={l.href} className={s.card}>

@@ -1,17 +1,29 @@
 :root {
-  /* Astragraphia */
-  --plum: #941f62;
-  --plum-deep: #620e40;
-  --plum-ink: #2b0f20;
-  --magenta: #c4197f;
-  --gold: #f2b81e;
-  /* WCCE shapes */
-  --indigo: #21165a;
-  --violet: #3b1f8f;
-  --mint: #44c19b;
+  /* Expert Forum 2026 key visual (expertforum2026.com). The old token names
+     stay so every module picks up the new palette:
+     plum → royal blue, magenta → KV blue, gold → KV amber, plum-ink → navy. */
+  --plum: #2040da;
+  --plum-deep: #102a4c;
+  --plum-ink: #0b1f3a;
+  --magenta: #0380e1;
+  --gold: #fba500;
+  --indigo: #071a33;
+  --violet: #2040da;
+  --mint: #25a6e1;
+
+  /* KV palette */
+  --navy: #0b1f3a;
+  --astra: #005aaa;
+  --royal: #2040da;
+  --blue: #0380e1;
+  --sky: #25a6e1;
+  --red: #e81327;
+  --amber: #fba500;
+  --cream: #f8e9d4;
+  --brown: #8f4c2f;
 
   --paper: #fbf8f3;
-  --ink: #1b1220;
+  --ink: #0b1f3a;
   --white: #ffffff;
 
   --font-sans: "Google Sans", system-ui, sans-serif;

@@ -5,7 +5,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PublicArtwork } from "@/lib/artworks";
 import { playSfx, unlockSfx, watchSfx, type SfxHandle, type SfxName } from "@/lib/sfx";
 import { renderReplay, type Drawing } from "@/lib/strokes";
-import { ShapeStage, type SceneName } from "./ShapeStage";
+import { Ornament } from "@/components/Ornament";
+import { EVENT } from "@/lib/config";
 import s from "./wall.module.css";
 
 gsap.ticker.lagSmoothing(0);
@@ -13,8 +14,6 @@ gsap.ticker.lagSmoothing(0);
 const POLL_MS = 3000;
 const RECONCILE_MS = 30_000;
 const SPOTLIGHT_IDLE_MS = 45_000;
-const SCENE_MS = 150_000;
-const SCENES: SceneName[] = ["fan", "green", "fan", "plum"];
 const ROW_SPEEDS = [26, -20, 32]; // vh-relative px/s, alternating direction
 const WALL_SFX: SfxName[] = ["success", "sketch"];
 
@@ -48,10 +47,8 @@ export default function WallApp() {
   const [fresh, setFresh] = useState<Set<number>>(new Set());
   const [hero, setHero] = useState<Hero | null>(null);
   const [soundOn, setSoundOn] = useState(true);
+  const [burst, setBurst] = useState(0);
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const fadeRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<ShapeStage | null>(null);
   const maxNumber = useRef(0);
   const queue = useRef<Hero[]>([]);
   const heroBusy = useRef(false);
@@ -63,24 +60,8 @@ export default function WallApp() {
     itemsRef.current = items;
   }, [items]);
 
-  // ─── WebGL backdrop + scene rotation ─────────────────────────────
   useEffect(() => {
     lastHeroAt.current = Date.now();
-    const stage = new ShapeStage(canvasRef.current!);
-    stageRef.current = stage;
-    let i = 0;
-    const id = setInterval(() => {
-      i = (i + 1) % SCENES.length;
-      gsap
-        .timeline()
-        .to(fadeRef.current, { opacity: 1, duration: 1.2, ease: "power2.inOut" })
-        .add(() => stage.set(SCENES[i]))
-        .to(fadeRef.current, { opacity: 0, duration: 1.6, ease: "power2.inOut" });
-    }, SCENE_MS);
-    return () => {
-      clearInterval(id);
-      stage.dispose();
-    };
   }, []);
 
   // ─── Sound: locked until a click / key press unless Chrome runs with
@@ -160,7 +141,11 @@ export default function WallApp() {
       if (!next) return;
       next = { ...next, rush: queue.current.length > 0 };
       heroBusy.current = true;
-      preload(next.item.art).then(() => setHero(next!));
+      preload(next.item.art).then(() => {
+        // A new artwork sends a wave through the ornament as its card rises.
+        if (next!.kind === "new") setBurst((b) => b + 1);
+        setHero(next!);
+      });
     }, 500);
     return () => clearInterval(id);
   }, []);
@@ -192,16 +177,17 @@ export default function WallApp() {
 
   return (
     <div className={s.root}>
-      <canvas ref={canvasRef} className={s.canvas} />
+      <Ornament preset="wall" className={s.canvas} burst={burst} />
       <div className={s.vignette} />
-      <div ref={fadeRef} className={s.fade} />
 
       <header className={s.header}>
         <div className={s.brand}>
           <div className={s.lockup}>
-            <img src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
+            <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
             <i />
-            <img src="/brand/wcce-mark-white.png" alt="WCCE 2026" />
+            <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
+            <i />
+            <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
           </div>
           {!empty && (
             <>
@@ -324,6 +310,7 @@ function MarqueeRow({
 function HeroMoment({ hero, speedRef, onDone }: { hero: Hero; speedRef: React.RefObject<number>; onDone: (h: Hero) => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [bloom, setBloom] = useState(0);
   const { item, kind } = hero;
 
   useEffect(() => {
@@ -346,6 +333,7 @@ function HeroMoment({ hero, speedRef, onDone }: { hero: Hero; speedRef: React.Re
     const hold = hero.rush ? T.rushHold : Math.max(T.rushHold, T.total - T.exit - finalAt);
 
     tl.set(root, { visibility: "visible" })
+      .call(() => setBloom((b) => b + 1), [], 0.1) // ornament frame blooms out from the card
       .to(speedRef, { current: 0.12, duration: T.rise, ease: "power2.out" }, 0)
       .fromTo(q("[data-backdrop]"), { autoAlpha: 0 }, { autoAlpha: 1, duration: T.rise * 0.6, ease: "power2.out" }, 0)
       .fromTo(q("[data-card]"), { y: "70vh", rotate: -9, scale: 0.72 }, { y: 0, rotate: -2, scale: 1, duration: T.rise, ease: "expo.out" }, 0.15)
@@ -400,6 +388,9 @@ function HeroMoment({ hero, speedRef, onDone }: { hero: Hero; speedRef: React.Re
   return (
     <div ref={rootRef} className={s.hero}>
       <div className={s.heroBackdrop} data-backdrop />
+      <div className={s.heroOrnament} data-backdrop>
+        <Ornament preset="hero" className={s.canvas} burst={bloom} />
+      </div>
       <div className={s.heroCard} data-card>
         <div className={s.heroArt}>
           <canvas ref={canvasRef} />
@@ -412,7 +403,7 @@ function HeroMoment({ hero, speedRef, onDone }: { hero: Hero; speedRef: React.Re
         </div>
         <div className={s.heroCaption}>
           <b>{fmt(item.number)}</b>
-          <span>print your mark · WCCE 2026</span>
+          <span>print your mark · {EVENT.short}</span>
         </div>
       </div>
       <div className={s.heroInfo} data-info>

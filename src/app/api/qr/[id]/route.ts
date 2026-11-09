@@ -8,7 +8,7 @@ export async function GET(req: Request, ctx: RouteContext<"/api/qr/[id]">) {
   const png = await QRCode.toBuffer(`${publicOrigin(req)}/a/${id}`, {
     width: 480,
     margin: 1,
-    color: { dark: "#2B0F20", light: "#FFFFFF" },
+    color: { dark: "#0b1f3a", light: "#FFFFFF" },
     errorCorrectionLevel: "M",
   });
   return new Response(new Uint8Array(png), {

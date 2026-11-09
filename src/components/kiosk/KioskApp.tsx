@@ -11,6 +11,7 @@ import { DEFAULT_STYLE, STYLE_IDS, STYLE_THUMBS, type StyleId } from "@/lib/styl
 import { DrawCanvas, exportDrawing } from "./DrawCanvas";
 import { DICT, type Locale } from "./i18n";
 import { Keyboard } from "./Keyboard";
+import { Ornament } from "@/components/Ornament";
 import s from "./kiosk.module.css";
 
 gsap.registerPlugin(SplitText);
@@ -416,15 +417,18 @@ export default function KioskApp() {
       }}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <div className={s.shapes} />
+      {/* Expert Forum ornament: frozen while drawing (the pen needs the tablet's CPU), quicker waves while the AI paints. */}
+      <Ornament preset="kiosk" className={s.shapes} paused={step === "draw"} tempo={step === "generating" ? 2.4 : 1} />
       <div className={s.grain} />
 
       <div className={s.frame}>
         <header className={s.header}>
           <div className={s.lockup}>
-            <img src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
+            <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
             <i />
-            <img src="/brand/wcce-mark-white.png" alt="WCCE 2026" />
+            <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
+            <i />
+            <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
           </div>
           <div className={s.lang} role="group" aria-label="Language">
             {(["id", "en"] as const).map((l) => (
@@ -743,7 +747,7 @@ export default function KioskApp() {
 
       <div ref={sheetA} className={`${s.sheet} ${s.sheetA}`} />
       <div ref={sheetB} className={`${s.sheet} ${s.sheetB}`}>
-        <img src="/brand/wcce-mark-white.png" alt="" />
+        <img src="/brand/astra70-logo-white.png" alt="" />
       </div>
 
       {idle != null && (

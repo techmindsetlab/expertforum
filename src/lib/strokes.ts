@@ -10,10 +10,10 @@ export type Stroke = { color: string; size: number; pen: boolean; points: Stroke
 export type Drawing = { v: 1; strokes: Stroke[] };
 
 export const PALETTE = [
-  "#1B1220", // ink
-  "#941F62", // astragraphia plum
+  "#0b1f3a", // ink
+  "#2040da", // Expert Forum royal blue
   "#E5332A", // red
-  "#F2B81E", // gold
+  "#fba500", // KV amber
   "#2BA36B", // green
   "#2F6FE4", // blue
   "#E85FA8", // pink

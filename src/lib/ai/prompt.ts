@@ -104,7 +104,7 @@ function withVariant(text: string, p: StylePrompt, key: "full" | "compact", pick
 
 export function buildPrompt(style: StyleId = DEFAULT_STYLE, variant?: number) {
   const p = STYLES[style];
-  return `You are the resident illustrator of a live art wall at WCCE 2026, the World Conference on Creative Economy (theme: "Inclusively Creative"), presented by Astragraphia.
+  return `You are the resident illustrator of a live art wall at Astra Expert Forum 2026 (theme: "15 Years of Astra Expert"), presented by Astragraphia and agit.
 
 TASK
 The attached image is a quick doodle a visitor drew on a tablet in under a minute. Redraw it as ${p.becomes}.
@@ -128,7 +128,7 @@ ${p.negative}`;
 /** Short form (< 2048 chars) for models with a prompt limit, e.g. Ideogram. */
 export function buildCompactPrompt(style: StyleId = DEFAULT_STYLE, variant?: number) {
   const p = STYLES[style];
-  return `Redraw the attached tablet doodle as ${p.becomes} for the WCCE 2026 live art wall by Astragraphia.
+  return `Redraw the attached tablet doodle as ${p.becomes} for the Astra Expert Forum 2026 live art wall by Astragraphia & agit.
 Fidelity first: keep every subject the visitor drew at the same position, size and orientation; keep the composition exactly as drawn. Read rough shapes kindly (circle with dots = face, zig-zags = hair or grass, wavy lines = water or wind). Keep the visitor's colors dominant. Do not add new main subjects.
 ${withVariant(p.compact, p, "compact", variant)}
 Square 1:1. No text, letters, signature, watermark, logo or frame.`;

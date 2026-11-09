@@ -18,10 +18,10 @@ const hand = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "print your mark — Astragraphia × WCCE 2026",
+  title: "print your mark — Expert Forum 2026",
   description: "Live Sketch → AI → Digital Wall. Gambar di tablet, AI melukis ulang, karyamu tampil di layar besar.",
-  applicationName: "Astragraphia Live Sketch",
-  icons: { icon: "/brand/wcce-mark-black.png" },
+  applicationName: "Expert Forum Live Sketch",
+  icons: { icon: "/brand/astra70-logo.png" },
 };
 
 export const viewport: Viewport = {
@@ -29,7 +29,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#2B0F2E",
+  themeColor: "#0b1f3a",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

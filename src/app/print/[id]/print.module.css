@@ -1,8 +1,8 @@
 /* A4 portrait = 210 × 297 mm. All sizes in mm so screen preview = paper. */
 
 .sheet {
-  /* Handwriting: Momo Signature in the Astragraphia wordmark colour. */
-  --hand-ink: #6f1d46;
+  /* Handwriting: Momo Signature in Astra blue, like a blue-ink pen. */
+  --hand-ink: #005aaa;
   --pad-top: 12mm;
   --header: 12mm;
   --gap: 4mm;
@@ -13,7 +13,7 @@
   margin: 0 auto;
   padding: var(--pad-top) 14mm 0;
   background: #fff;
-  color: #2b0f20;
+  color: #0b1f3a;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-print-color-adjust: exact;
@@ -27,7 +27,8 @@
   }
 }
 
-/* Header: Astragraphia logo left, WCCE mark right. */
+/* Header: astragraphia · 70 Tahun Astra · agit, both "member of ASTRA"
+   lines the same size. */
 .top {
   display: flex;
   align-items: center;
@@ -35,14 +36,20 @@
   height: var(--header);
 }
 
-.agLogo {
-  height: 7mm;
+.top img {
   width: auto;
 }
 
-.wcce {
-  height: 11mm;
-  width: auto;
+.logoAg {
+  height: 6.6mm;
+}
+
+.logo70 {
+  height: 12mm;
+}
+
+.logoAgit {
+  height: 9mm;
 }
 
 /* Artwork runs from the header down to the footer rule. */
@@ -81,7 +88,8 @@
   font-size: min(14mm, calc(100cqw / (var(--n) * 0.62)));
   line-height: 1.3;
   color: var(--hand-ink);
-  text-shadow: 0 0 0.8mm rgba(255, 255, 255, 0.7);
+  /* White halo so the blue ink reads on blue artwork too. */
+  text-shadow: 0 0 0.4mm #fff, 0 0 1.2mm rgba(255, 255, 255, 0.92);
   white-space: nowrap;
 }
 
@@ -95,7 +103,7 @@
   padding: 5mm 14mm 7mm; /* bottom clear of the printer's unprintable edge */
   display: flex;
   flex-direction: column;
-  border-top: 0.8mm solid #941f62;
+  border-top: 0.8mm solid #2040da;
   background: #fff;
 }
 
@@ -132,7 +140,7 @@
 
 .no {
   margin-left: 2.5mm;
-  color: #941f62;
+  color: #2040da;
 }
 
 .name {
@@ -160,7 +168,7 @@
   font-size: 3mm;
   font-weight: 400;
   line-height: 1.4;
-  color: #7a5d6d;
+  color: #55657c;
 }
 
 .date {
@@ -188,7 +196,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   white-space: nowrap;
-  color: #941f62;
+  color: #2040da;
 }
 
 .qrCode {
@@ -232,7 +240,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 12px 20px;
-  background: #2b0f20;
+  background: #0b1f3a;
   color: #fff;
   font-family: var(--font-sans);
   font-size: 14px;
@@ -262,15 +270,15 @@
 .toolbar button {
   padding: 10px 22px;
   border-radius: 999px;
-  border: 1.5px solid #f2b81e;
+  border: 1.5px solid #fba500;
   background: transparent;
-  color: #f2b81e;
+  color: #fba500;
   font-weight: 700;
 }
 
 .toolbar button[data-current="true"] {
-  background: #f2b81e;
-  color: #2b0f20;
+  background: #fba500;
+  color: #0b1f3a;
 }
 
 .toolbar button:disabled {

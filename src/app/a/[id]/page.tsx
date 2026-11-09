@@ -13,7 +13,7 @@ export async function generateMetadata(props: PageProps<"/a/[id]">): Promise<Met
   const title = `${art.name} · #${String(art.number).padStart(3, "0")} — print your mark`;
   return {
     title,
-    description: `Sketsa tangan yang dilukis ulang oleh AI di booth Astragraphia, ${EVENT.short}.`,
+    description: `Sketsa tangan yang dilukis ulang oleh AI di booth Astragraphia & agit, ${EVENT.short}.`,
     openGraph: { title, images: [{ url: `/api/art/${art.id}/card`, width: 1080, height: 1350 }] },
   };
 }

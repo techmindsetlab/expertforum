@@ -23,6 +23,8 @@ async function create(): Promise<DB> {
   const { drizzle } = await import("drizzle-orm/pglite");
   const { migrate } = await import("drizzle-orm/pglite/migrator");
   const dir = path.join(process.cwd(), ".data", "pglite");
+  // A fresh checkout has no .data yet and PGlite only creates the last folder.
+  (await import("node:fs")).mkdirSync(path.dirname(dir), { recursive: true });
   const client = new PGlite(dir);
   const db = drizzle({ client, schema });
   await migrate(db, { migrationsFolder: path.join(process.cwd(), "drizzle") });

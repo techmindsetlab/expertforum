@@ -4,8 +4,8 @@
   max-width: 1080px;
   margin: 0 auto;
   background:
-    radial-gradient(90% 50% at 10% -10%, rgba(196, 25, 127, 0.55), transparent 60%),
-    radial-gradient(70% 50% at 100% 0%, rgba(59, 31, 143, 0.55), transparent 60%);
+    radial-gradient(90% 50% at 10% -10%, rgba(3, 128, 225, 0.55), transparent 60%),
+    radial-gradient(70% 50% at 100% 0%, rgba(32, 64, 218, 0.55), transparent 60%);
 }
 
 .head {
@@ -20,7 +20,12 @@
 }
 
 .mark {
-  height: 38px;
+  height: 58px;
+  width: auto;
+}
+
+.agit {
+  height: 50px;
   width: auto;
 }
 

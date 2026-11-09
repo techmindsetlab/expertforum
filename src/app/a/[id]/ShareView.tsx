@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { PublicArtwork } from "@/lib/artworks";
 import { EVENT } from "@/lib/config";
 import { renderReplay, type Drawing } from "@/lib/strokes";
+import { Ornament } from "@/components/Ornament";
 import s from "./share.module.css";
 
 /** Mobile page behind the QR: the sketch replays, then the AI print develops. */
@@ -75,10 +76,15 @@ export function ShareView({ art }: { art: PublicArtwork }) {
 
   return (
     <main className={s.page} ref={rootRef}>
+      <div className={s.ornament} aria-hidden>
+        <Ornament preset="band" className={s.ornamentCanvas} />
+      </div>
       <header className={s.head} data-in>
-        <img src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
+        <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
         <i />
-        <img src="/brand/wcce-mark-white.png" alt="WCCE 2026" />
+        <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
+        <i />
+        <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
       </header>
 
       <div className={s.kicker} data-in>
@@ -117,7 +123,7 @@ export function ShareView({ art }: { art: PublicArtwork }) {
       </div>
 
       <footer className={s.foot} data-in>
-        <strong>{EVENT.short}</strong> · {EVENT.fullName}
+        <strong>{EVENT.fullName}</strong>
         <br />
         {EVENT.dates[en ? "en" : "id"]} · {EVENT.venue}
       </footer>

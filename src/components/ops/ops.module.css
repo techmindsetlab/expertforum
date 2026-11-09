@@ -2,7 +2,7 @@
 
 .page {
   min-height: 100vh;
-  background: #1a0b1c;
+  background: #0b1f3a;
   color: #f6eef3;
   font-size: 15px;
 }
@@ -127,7 +127,7 @@
 
 .btnGold {
   background: var(--gold);
-  color: #2b0f20;
+  color: #0b1f3a;
   border-color: transparent;
 }
 
@@ -208,12 +208,12 @@
 }
 
 .tagOk {
-  background: rgba(68, 193, 155, 0.18);
+  background: rgba(37, 166, 225, 0.18);
   color: #8ff0cf;
 }
 
 .tagWarn {
-  background: rgba(242, 184, 30, 0.18);
+  background: rgba(251, 165, 0, 0.18);
   color: #ffd779;
 }
 
@@ -256,9 +256,9 @@
   place-items: center;
   padding: 24px;
   background:
-    radial-gradient(80% 60% at 20% 0%, rgba(196, 25, 127, 0.45), transparent 60%),
-    radial-gradient(80% 60% at 100% 100%, rgba(59, 31, 143, 0.5), transparent 60%),
-    #1a0b1c;
+    radial-gradient(80% 60% at 20% 0%, rgba(3, 128, 225, 0.45), transparent 60%),
+    radial-gradient(80% 60% at 100% 100%, rgba(32, 64, 218, 0.5), transparent 60%),
+    #0b1f3a;
 }
 
 .loginCard {

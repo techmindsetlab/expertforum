@@ -4,7 +4,10 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: #170f38;
+  /* Expert Forum navy with a royal-blue glow; the ornament canvas sits on top. */
+  background:
+    radial-gradient(70% 90% at 78% 30%, rgba(32, 64, 218, 0.45) 0%, rgba(32, 64, 218, 0) 70%),
+    linear-gradient(160deg, #0d2a5c 0%, #0b1f3a 55%, #071a33 100%);
   color: #fff;
   cursor: none;
   user-select: none;
@@ -18,20 +21,13 @@
   display: block;
 }
 
-.fade {
-  position: absolute;
-  inset: 0;
-  background: #120a2a;
-  opacity: 0;
-  pointer-events: none;
-}
-
 .vignette {
   position: absolute;
   inset: 0;
+  /* Only behind the header text (top left); the ornament corners stay vivid. */
   background:
-    linear-gradient(180deg, rgba(14, 6, 30, 0.72) 0%, rgba(14, 6, 30, 0) 26%),
-    linear-gradient(0deg, rgba(14, 6, 30, 0.55) 0%, rgba(14, 6, 30, 0) 22%);
+    radial-gradient(62% 48% at 0% 0%, rgba(5, 18, 40, 0.85) 0%, rgba(5, 18, 40, 0) 100%),
+    linear-gradient(0deg, rgba(5, 18, 40, 0.3) 0%, rgba(5, 18, 40, 0) 16%);
   pointer-events: none;
 }
 
@@ -53,26 +49,34 @@
   gap: 1.6vh;
 }
 
+/* astragraphia · 70 Tahun Astra · agit — sized so both "member of ASTRA"
+   lines match. */
 .lockup {
   display: flex;
   align-items: center;
-  gap: 1.8vh;
+  gap: 2.2vh;
 }
 
-.lockup img:first-child {
-  height: 4.2vh;
+.lockup img {
   width: auto;
+}
+
+.logoAg {
+  height: 4.2vh;
+}
+
+.logo70 {
+  height: 6.4vh;
+}
+
+.logoAgit {
+  height: 5.2vh;
 }
 
 .lockup i {
   width: 1px;
-  height: 4.2vh;
+  height: 5vh;
   background: rgba(255, 255, 255, 0.4);
-}
-
-.lockup img:last-child {
-  height: 4vh;
-  width: auto;
 }
 
 .headline {
@@ -109,8 +113,15 @@
   color: #fff;
 }
 
+/* Navy plate keeps the count readable over the ornament corner. */
 .counter {
   text-align: right;
+  padding: 1.8vh 2.6vh 1.6vh;
+  border-radius: 2.2vh;
+  background: rgba(7, 26, 51, 0.78);
+  backdrop-filter: blur(1.2vh);
+  -webkit-backdrop-filter: blur(1.2vh);
+  box-shadow: 0 1.4vh 3.6vh rgba(2, 10, 26, 0.35);
 }
 
 .count {
@@ -167,7 +178,7 @@
   padding: 1vh 1vh 0;
   background: #fff;
   border-radius: 1.2vh;
-  box-shadow: 0 1.6vh 3.6vh rgba(8, 0, 24, 0.45);
+  box-shadow: 0 1.6vh 3.6vh rgba(2, 10, 26, 0.45);
   transform: rotate(var(--r, 0deg));
   color: var(--plum-ink);
 }
@@ -203,7 +214,7 @@
 .fresh {
   box-shadow:
     0 0 0 0.5vh var(--gold),
-    0 1.6vh 4vh rgba(242, 184, 30, 0.45);
+    0 1.6vh 4vh rgba(251, 165, 0, 0.45);
 }
 
 /* ─── Empty state ────────────────────────────────────── */
@@ -258,9 +269,14 @@
 .heroBackdrop {
   position: absolute;
   inset: 0;
-  background: rgba(16, 6, 30, 0.62);
+  background: rgba(5, 18, 40, 0.62);
   backdrop-filter: blur(0.8vh);
   -webkit-backdrop-filter: blur(0.8vh);
+}
+
+.heroOrnament {
+  position: absolute;
+  inset: 0;
 }
 
 .heroCard {
@@ -269,7 +285,7 @@
   padding: 2vh 2vh 0;
   background: #fff;
   border-radius: 2.2vh;
-  box-shadow: 0 4vh 9vh rgba(6, 0, 20, 0.55);
+  box-shadow: 0 4vh 9vh rgba(2, 10, 26, 0.55);
   color: var(--plum-ink);
 }
 
@@ -331,7 +347,7 @@
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #ff9ccc;
+  color: #8fd3ff;
 }
 
 .heroNumber {
@@ -372,7 +388,7 @@
   gap: 0.8vh;
   padding: 1vh 1.8vh;
   border-radius: 999px;
-  background: rgba(15, 4, 20, 0.6);
+  background: rgba(5, 18, 40, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff;
   font: 700 1.5vh/1 var(--font-sans);

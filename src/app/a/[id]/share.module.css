@@ -6,9 +6,32 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  position: relative;
   background:
-    radial-gradient(120% 50% at 50% -10%, rgba(196, 25, 127, 0.9), transparent 60%),
-    linear-gradient(180deg, #7d1856 0%, #3a0f43 45%, #170f38 100%);
+    radial-gradient(120% 50% at 80% -10%, rgba(32, 64, 218, 0.85), transparent 60%),
+    linear-gradient(180deg, #123b7c 0%, #0b1f3a 45%, #071a33 100%);
+}
+
+/* Animated Expert Forum ornament along the top right, fading out downward. */
+.ornament {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent);
+  mask-image: linear-gradient(180deg, #000 55%, transparent);
+}
+
+.ornamentCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.page > :not(.ornament) {
+  position: relative;
 }
 
 .head {
@@ -17,20 +40,26 @@
   gap: 12px;
 }
 
-.head img:first-child {
-  height: 24px;
+.head img {
   width: auto;
+}
+
+.logoAg {
+  height: 22px;
+}
+
+.logo70 {
+  height: 34px;
+}
+
+.logoAgit {
+  height: 28px;
 }
 
 .head i {
   width: 1px;
-  height: 24px;
+  height: 26px;
   background: rgba(255, 255, 255, 0.4);
-}
-
-.head img:last-child {
-  height: 24px;
-  width: auto;
 }
 
 .kicker {
@@ -54,7 +83,7 @@
   border-radius: 20px;
   background: #fff;
   color: var(--plum-ink);
-  box-shadow: 0 24px 60px rgba(10, 0, 20, 0.5);
+  box-shadow: 0 24px 60px rgba(2, 10, 26, 0.5);
 }
 
 .art {
@@ -101,7 +130,7 @@
 
 .caption span {
   font-size: 13px;
-  color: #7a5d6d;
+  color: #55657c;
 }
 
 .actions {

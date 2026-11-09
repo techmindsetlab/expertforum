@@ -1,8 +1,23 @@
 # Expert Forum — print your mark
 
-Project baru dengan konsep yang sama seperti *print your mark* (Astragraphia × WCCE 2026).
-Kode di bawah ini masih salinan aplikasi WCCE: branding, copy dan URL belum diganti, dan
-project Vercel + database Neon untuk Expert Forum belum dibuat.
+Live Sketch → AI → Digital Wall untuk booth Astragraphia & agit di **Astra Expert Forum 2026**
+(Rabu, 11 November 2026, 08.00–12.00 WIB, Catur Dharma Hall, Menara Astra lt. 5).
+Tema: *15 Years of Astra Expert: Strengthen Value Creation for Business Impact.*
+
+Konsep dan alur sama dengan *print your mark* WCCE 2026. Tampilan memakai KV Expert Forum
+(expertforum2026.com):
+
+- Logo **astragraphia · 70 Tahun Astra · agit** di kiosk, wall, cetak A4, label, halaman
+  download, email dan kartu unduhan (`public/brand/`).
+- Palet KV: navy `#0b1f3a`, royal `#2040da`, blue `#0380e1`, sky, red, amber `#fba500`,
+  cream, brown (`src/app/globals.css`).
+- Ornamen geometris KV dibuat bergerak (`src/lib/ornament.ts`, Canvas 2D): kluster di
+  sudut wall dan kiosk, gelombang yang mengubah bentuk tiap beberapa detik, dan bingkai
+  ornamen yang mekar saat karya baru tampil di wall. Di kiosk ornamen berhenti saat
+  menggambar dan bergerak lebih cepat saat AI melukis.
+
+**Production:** belum ada; project Vercel + database Neon menyusul. Petunjuk di bawah masih
+memakai URL WCCE, ganti dengan URL Expert Forum setelah deploy.
 
 ---
 

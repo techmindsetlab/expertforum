@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 /**
  * 95 × 110 mm label for the second (label) printer: the A4 poster without its
- * footer — no campaign line, QR or Apeos badge, just the logos and the signed artwork.
+ * footer — no campaign line, QR or Apeos badge, just the three logos and the signed artwork.
  */
 export default async function LabelPage(props: PageProps<"/print/[id]/label">) {
   const { id } = await props.params;
@@ -23,8 +23,9 @@ export default async function LabelPage(props: PageProps<"/print/[id]/label">) {
       {sp.embed !== "1" && <PrintToolbar id={art.id} format="label" />}
       <article className={`${s.sheet} ${sign.variable}`}>
         <header className={s.top}>
-          <img className={s.agLogo} src="/brand/astragraphia-logo.svg" alt="Astragraphia" />
-          <img className={s.wcce} src="/brand/wcce-mark-black.png" alt="WCCE" />
+          <img className={s.logoAg} src="/brand/astragraphia-wordmark.svg" alt="Astragraphia" />
+          <img className={s.logo70} src="/brand/astra70-logo.png" alt="70 Tahun Astra" />
+          <img className={s.logoAgit} src="/brand/agit-logo.png" alt="agit" />
         </header>
 
         <div className={s.art}>
