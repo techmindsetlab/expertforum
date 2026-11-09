@@ -1,0 +1,87 @@
+.main {
+  min-height: 100vh;
+  padding: 56px 24px 64px;
+  max-width: 1080px;
+  margin: 0 auto;
+  background:
+    radial-gradient(90% 50% at 10% -10%, rgba(196, 25, 127, 0.55), transparent 60%),
+    radial-gradient(70% 50% at 100% 0%, rgba(59, 31, 143, 0.55), transparent 60%);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.mark {
+  height: 38px;
+  width: auto;
+}
+
+.title {
+  margin: 64px 0 0;
+  font-size: clamp(56px, 11vw, 132px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.title :global(.signature) {
+  position: relative;
+  z-index: 2; /* "your" always in front of print / mark */
+  color: var(--gold);
+  letter-spacing: 0;
+}
+
+.sub {
+  margin: 16px 0 0;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+  border-radius: 20px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    transform 0.2s var(--ease-out),
+    background 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.card strong {
+  font-size: 22px;
+}
+
+.card span {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.card em {
+  margin-top: 12px;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+}

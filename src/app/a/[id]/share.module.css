@@ -1,0 +1,154 @@
+.page {
+  min-height: 100vh;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 22px 18px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background:
+    radial-gradient(120% 50% at 50% -10%, rgba(196, 25, 127, 0.9), transparent 60%),
+    linear-gradient(180deg, #7d1856 0%, #3a0f43 45%, #170f38 100%);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.head img:first-child {
+  height: 24px;
+  width: auto;
+}
+
+.head i {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.head img:last-child {
+  height: 24px;
+  width: auto;
+}
+
+.kicker {
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.kicker em {
+  position: relative;
+  z-index: 2; /* "your" always in front of print / mark */
+  font-style: normal;
+  font-family: var(--font-hand);
+  color: var(--gold);
+  font-size: 1.2em;
+}
+
+.card {
+  padding: 10px 10px 0;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--plum-ink);
+  box-shadow: 0 24px 60px rgba(10, 0, 20, 0.5);
+}
+
+.art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.art canvas,
+.print,
+.print img,
+.sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.print {
+  transition: opacity 0.4s;
+}
+
+.sig {
+  position: absolute;
+  right: 5%;
+  bottom: 4%;
+  font-size: clamp(32px, 11vw, 56px);
+  transform: rotate(-4deg);
+}
+
+.caption {
+  display: grid;
+  gap: 2px;
+  padding: 12px 6px 14px;
+}
+
+.caption b {
+  font-size: 20px;
+}
+
+.caption span {
+  font-size: 13px;
+  color: #7a5d6d;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.primary,
+.secondary,
+.ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--gold);
+  color: var(--plum-ink);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.ghost {
+  grid-column: 1 / -1;
+  height: 44px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.foot {
+  margin-top: auto;
+  padding-top: 18px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.foot strong {
+  color: #fff;
+}

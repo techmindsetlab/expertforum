@@ -1,0 +1,10 @@
+{
+  "name": "Astragraphia Live Sketch",
+  "short_name": "Live Sketch",
+  "start_url": "/kiosk",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#2B0F2E",
+  "theme_color": "#2B0F2E",
+  "icons": [{ "src": "/brand/wcce-mark-black.png", "sizes": "1120x1000", "type": "image/png" }]
+}

@@ -1,0 +1,8 @@
+# never upload local secrets, dev database or notes
+.env*
+!.env.example
+.data
+.neon
+neon_astragraphia.txt
+node_modules
+.next

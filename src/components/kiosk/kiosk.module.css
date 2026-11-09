@@ -1,0 +1,1094 @@
+/* Kiosk — designed for Galaxy Tab A 10.1 portrait (800×1280 CSS px).
+   1rem ≈ 16px there; everything scales with the viewport. Transform/opacity
+   only animations so the 2016-era GPU stays smooth. */
+
+.root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-size: min(2vw, 1.25vh);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  color: #fff;
+  background:
+    radial-gradient(120% 60% at 50% -12%, rgba(196, 25, 127, 0.95) 0%, rgba(196, 25, 127, 0) 60%),
+    linear-gradient(180deg, #941f62 0%, #5c1046 30%, #2c0f3f 62%, #170f38 100%);
+}
+
+/* WCCE purple shapes drifting behind everything */
+.shapes {
+  position: absolute;
+  inset: -8%;
+  background: url("/brand/wcce-purple.webp") center / cover no-repeat;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  animation: drift 26s ease-in-out infinite alternate;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.13;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1.08) rotate(-1.5deg) translate3d(-1.5%, -1%, 0);
+  }
+  to {
+    transform: scale(1.18) rotate(1.5deg) translate3d(1.5%, 1.5%, 0);
+  }
+}
+
+.frame {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  max-width: 54rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem 2.6rem 2.6rem;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  flex: none;
+}
+
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.lockup img:first-child {
+  height: 2.6rem;
+  width: auto;
+}
+
+.lockup i {
+  width: 1px;
+  height: 2.6rem;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.lockup img:last-child {
+  height: 2.5rem;
+  width: auto;
+}
+
+.lang {
+  display: flex;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: rgba(15, 4, 20, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.lang button {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.lang button[aria-pressed="true"] {
+  background: #fff;
+  color: var(--plum-ink);
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.stepLabel {
+  margin-top: 1.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.title {
+  margin: 0.5rem 0 0;
+  font-size: 3.1rem;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 0.6rem 0 0;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.4rem;
+}
+
+.btn,
+.btnPrimary,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  height: 4.6rem;
+  padding: 0 1.7rem;
+  border-radius: 999px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex: none;
+  transition:
+    transform 0.15s var(--ease-out),
+    opacity 0.2s;
+}
+
+.btnPrimary {
+  margin-left: auto;
+  background: var(--magenta);
+  color: #fff;
+  box-shadow:
+    0 0.9rem 2.4rem rgba(196, 25, 127, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btnPrimary.gold {
+  background: var(--gold);
+  color: var(--plum-ink);
+  box-shadow:
+    0 0.9rem 2.4rem rgba(242, 184, 30, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btnGhost {
+  padding: 0 1.2rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.btn:active,
+.btnPrimary:active,
+.btnGhost:active {
+  transform: scale(0.96);
+}
+
+.btn:disabled,
+.btnPrimary:disabled {
+  opacity: 0.35;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.btnPrimary svg,
+.btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ─── Attract ────────────────────────────────────────── */
+.attract {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mark {
+  position: relative;
+  font-weight: 700;
+  font-size: 12.5rem;
+  line-height: 0.82;
+  letter-spacing: -0.055em;
+  margin: 0 0 0 -0.6rem;
+}
+
+.markLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.markLine span {
+  display: inline-block;
+}
+
+.markHand {
+  display: block;
+  position: relative;
+  z-index: 2; /* "your" always in front of print / mark */
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 10.5rem;
+  letter-spacing: 0;
+  color: var(--gold);
+  line-height: 0.7;
+  margin: -0.15em 0 -0.05em 1.6rem;
+  transform: rotate(-7deg);
+  transform-origin: left center;
+}
+
+.attractSub {
+  margin: 3rem 0 0;
+  max-width: 34rem;
+  font-size: 1.6rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cta {
+  margin-top: 3rem;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  height: 5.4rem;
+  padding: 0 2.4rem 0 2.8rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--plum-ink);
+  font-size: 1.6rem;
+  font-weight: 700;
+  box-shadow: 0 1.2rem 3rem rgba(20, 0, 20, 0.35);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.cta svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--magenta);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+
+.wallStrip {
+  margin-top: auto;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.wallStripLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+  padding-left: 12%;
+}
+
+.wallTrack {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.wallTrack img {
+  width: 8.5rem;
+  height: 8.5rem;
+  border-radius: 1rem;
+  background: #fff;
+  object-fit: cover;
+  border: 0.35rem solid #fff;
+  transform: rotate(var(--r, 0deg));
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ─── Data step ──────────────────────────────────────── */
+.fields {
+  margin-top: 1.8rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.4rem 1.1rem;
+  border-radius: 1.3rem;
+  background: rgba(14, 3, 20, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.field[data-active="true"] {
+  border-color: #fff;
+  background: rgba(14, 3, 20, 0.7);
+}
+
+.field[data-invalid="true"] {
+  border-color: #ff7aa8;
+}
+
+.fieldLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fieldLabel em {
+  font-style: normal;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #ffb3cf;
+}
+
+.fieldValue {
+  display: block;
+  margin-top: 0.35rem;
+  min-height: 2.4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fieldValue[data-empty="true"] {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 400;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 2.1rem;
+  margin-left: 2px;
+  vertical-align: -0.3rem;
+  background: var(--gold);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.sigRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.sigCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0.5rem 1.2rem 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--plum-ink);
+}
+
+.sigCard small {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--plum);
+}
+
+.sigCard span {
+  font-size: 2rem;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.optIn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+}
+
+.check {
+  flex: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  display: grid;
+  place-items: center;
+}
+
+.check[data-on="true"] {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--plum-ink);
+}
+
+.consent {
+  margin: 0.9rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ─── Keyboard ───────────────────────────────────────── */
+.keyboard {
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.domainRow {
+  display: flex;
+  gap: 0.6rem;
+  overflow: hidden;
+}
+
+.domain {
+  flex: 1;
+  height: 3.4rem;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.domain:active {
+  background: #fff;
+  color: var(--plum-ink);
+}
+
+.keyRow {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.key {
+  flex: 1;
+  height: 4.4rem;
+  border-radius: 0.9rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.11);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.key:active {
+  background: #fff;
+  color: var(--plum-ink);
+}
+
+.keyHalf {
+  flex: 0.5;
+}
+
+.keyWide {
+  flex: 1.5;
+}
+
+.keySpace {
+  flex: 4;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.keyAction {
+  flex: 1.6;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.keyAccent {
+  background: rgba(242, 184, 30, 0.25);
+}
+
+.keyOn {
+  background: #fff;
+  color: var(--plum-ink);
+}
+
+/* ─── Draw step ──────────────────────────────────────── */
+/* Draw step: the idea is the headline; 3-minute timer top right. */
+.ideaTitle {
+  font-size: 3.4rem;
+  line-height: 1.08;
+}
+
+.ideaLabel {
+  color: var(--gold);
+}
+
+.shuffle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-left: 0.5rem;
+  vertical-align: 0.35rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff;
+}
+
+.shuffle svg {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+.shuffle:active {
+  transform: scale(0.92) rotate(-30deg);
+}
+
+.timer {
+  position: absolute;
+  top: 0.85rem;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.8rem;
+  padding: 0 1.1rem 0 0.9rem;
+  border-radius: 999px;
+  background: rgba(15, 4, 20, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.timer[data-low] {
+  background: var(--magenta);
+  border-color: transparent;
+  animation: tick 1s ease-in-out infinite;
+}
+
+@keyframes tick {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.notice[data-time-up] {
+  background: rgba(242, 184, 30, 0.2);
+  border-color: rgba(242, 184, 30, 0.65);
+  font-weight: 700;
+}
+
+.btnPrimary[data-pulse] {
+  animation: tick 1.2s ease-in-out infinite;
+}
+
+.canvasWrap[data-disabled] {
+  outline: 0.25rem solid rgba(242, 184, 30, 0.75);
+}
+
+/* Takes whatever height is left (long idea titles, notices) and keeps the
+   canvas square inside it. */
+.board {
+  margin-top: 1.4rem;
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  container-type: size;
+}
+
+.canvasWrap {
+  position: relative;
+  width: min(100cqw, 100cqh);
+  margin: 0 auto;
+  aspect-ratio: 1;
+  border-radius: 1.8rem;
+  overflow: hidden;
+  background: #fff;
+  box-shadow:
+    0 2rem 5rem rgba(10, 0, 20, 0.45),
+    0 0 0 0.4rem rgba(255, 255, 255, 0.12);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.canvasHint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: #b9a9b3;
+  font-size: 1.15rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.toolbar {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.colors {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.color {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  border: 0.25rem solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.15s var(--ease-out);
+}
+
+.color[aria-pressed="true"] {
+  border-color: #fff;
+  transform: scale(1.12);
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+.brushes {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: rgba(14, 3, 20, 0.45);
+}
+
+.brush {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.brush i {
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.brush[aria-pressed="true"] {
+  background: var(--magenta);
+}
+
+.notice {
+  margin-top: 1rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 1rem;
+  background: rgba(255, 122, 168, 0.18);
+  border: 1px solid rgba(255, 122, 168, 0.5);
+  font-size: 1.1rem;
+}
+
+/* ─── Generating ─────────────────────────────────────── */
+.gen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sparkle {
+  width: 4.5rem;
+  height: 4.5rem;
+  color: #fff;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.scanCard {
+  position: relative;
+  width: 30rem;
+  aspect-ratio: 1;
+  margin: 2.4rem 0 0;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2rem 5rem rgba(10, 0, 20, 0.45);
+}
+
+.scanCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scanLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 22%;
+  background: linear-gradient(180deg, rgba(196, 25, 127, 0) 0%, rgba(196, 25, 127, 0.28) 85%, #c4197f 100%);
+  animation: scan 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 460%, 0);
+  }
+}
+
+.genTitle {
+  margin: 2.4rem 0 0;
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+.genSub {
+  margin: 0.6rem 0 0;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.genStatus {
+  margin-top: 1.4rem;
+  min-height: 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ff9ccc;
+}
+
+.genTimer {
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Style picker ───────────────────────────────────── */
+.styles {
+  margin: auto 0; /* centred between the heading and the actions */
+  padding-top: 1.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+
+.styleCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.9rem 0.9rem 1.4rem;
+  border-radius: 1.8rem;
+  text-align: left;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition:
+    transform 0.15s var(--ease-out),
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.styleCard:active {
+  transform: scale(0.97);
+}
+
+/* last style used, so a re-generate shows what the visitor had before */
+.styleCard[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: rgba(242, 184, 30, 0.12);
+}
+
+.styleCard img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 1.2rem;
+  background: #fff;
+  box-shadow: 0 1.2rem 3rem rgba(10, 0, 20, 0.4);
+}
+
+.styleName {
+  margin-top: 1.1rem;
+  padding: 0 0.3rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.styleDesc {
+  margin-top: 0.35rem;
+  padding: 0 0.3rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ─── Review ─────────────────────────────────────────── */
+.artCard {
+  position: relative;
+  margin-top: 1.6rem;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 1.8rem;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2rem 5rem rgba(10, 0, 20, 0.45);
+}
+
+.artSketch,
+.artImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artSig {
+  position: absolute;
+  right: 6%;
+  bottom: 4.5%;
+  font-size: 3.6rem;
+  transform: rotate(-4deg);
+  color: var(--plum-ink);
+}
+
+.attemptLine {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fallback {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #ffd27a;
+}
+
+/* ─── Success ────────────────────────────────────────── */
+.success {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.okBadge {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.okBadge svg {
+  width: 3.4rem;
+  height: 3.4rem;
+}
+
+.successTitle {
+  margin: 2rem 0 0;
+  font-size: 3.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.thumbCircle {
+  margin-top: 2.2rem;
+  width: 17rem;
+  height: 17rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+  border: 0.5rem solid #fff;
+  box-shadow: 0 1.6rem 4rem rgba(10, 0, 20, 0.45);
+}
+
+.thumbCircle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.findNumber {
+  margin-top: 1.6rem;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.bigNumber {
+  margin-top: 0.2rem;
+  font-size: 7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.successNotes {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.doneBtn {
+  margin-top: 2.4rem;
+  position: relative;
+}
+
+.ring {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  width: 2.6rem;
+  height: 2.6rem;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+/* ─── Transitions & overlays ─────────────────────────── */
+.sheet {
+  position: absolute;
+  inset: -2% 0;
+  z-index: 20;
+  /* start position is set by GSAP (yPercent) — a CSS translate here would be
+     read back as pixels and break the tween */
+  pointer-events: none;
+  will-change: transform;
+}
+
+.sheetA {
+  background: var(--magenta);
+}
+
+.sheetB {
+  background: linear-gradient(180deg, #2b0f2e, #170f38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheetB img {
+  width: 9rem;
+  opacity: 0.85;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 3rem;
+  background: rgba(16, 4, 22, 0.82);
+  font-size: min(2vw, 1.25vh);
+}
+
+.overlay h2 {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.overlay p {
+  margin: 0;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.countdown {
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
