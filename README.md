@@ -98,7 +98,9 @@ dengan profil sendiri (Chrome mengingat printer terakhir per profil, dan login `
   generate supaya wall tidak didominasi satu warna:
   - *Ilustrasi Digital Art* (id `fashion`): sapuan kuas gouache tebal + aksen tinta hitam di kertas putih;
     warna diacak: ungu/pink/merah, biru/coral, magenta/kuning, atau emerald/scarlet.
-  - *Pop Art WPAP*: background geometris diacak biru (teal/cyan/navy), kuning, atau magenta.
+  - *Ilustrasi 3D Partikel* (id `wpap`, menggantikan Pop Art WPAP): render 3D dari ribuan butir/kubus kecil
+    yang sebagian pecah jadi partikel; latar warna Astragraphia dominan burgundy (gradien burgundy-magenta,
+    burgundy + glow oranye, wine gelap + rim magenta, atau lantai burgundy dengan low-poly).
 - Uji cepat di luar app: `node --env-file-if-exists=.env.development.local scripts/ai-test.mjs [sketsa.png]`.
 - Gambar yang ditolak filter keamanan tidak pernah tampil di wall; peserta diminta menggambar ulang.
 

@@ -9,5 +9,5 @@ export const DEFAULT_STYLE: StyleId = "fashion";
 /** Sample images shown on the kiosk style cards. */
 export const STYLE_THUMBS: Record<StyleId, string> = {
   fashion: "/kiosk/style-digital.webp", // "Digital Art"; id kept for older kiosk builds
-  wpap: "/kiosk/style-wpap.webp",
+  wpap: "/kiosk/style-3d.webp", // "3D Partikel"; id kept from the WPAP style it replaced
 };

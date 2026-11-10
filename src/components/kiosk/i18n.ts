@@ -47,7 +47,7 @@ const id = {
   styleSub: "Ketuk salah satu — AI akan melukis ulang gambarmu dengan gaya itu.",
   styles: {
     fashion: { name: "Ilustrasi Digital Art", desc: "Sapuan kuas cat yang berani & warna-warni" },
-    wpap: { name: "Pop Art WPAP", desc: "Geometris warna-warni khas Indonesia" },
+    wpap: { name: "Ilustrasi 3D Partikel", desc: "Ribuan butir 3D yang menyusun gambarmu" },
   },
   genTitle: "AI sedang melukis…",
   genSub: "Tunggu sebentar, biasanya ±1 menit.",
@@ -123,7 +123,7 @@ const en: Dict = {
   styleSub: "Tap one — AI will repaint your drawing in that style.",
   styles: {
     fashion: { name: "Digital Art Illustration", desc: "Bold, colourful painted brush strokes" },
-    wpap: { name: "WPAP Pop Art", desc: "Bold geometric pop art from Indonesia" },
+    wpap: { name: "3D Particle Art", desc: "Thousands of tiny 3D beads build your drawing" },
   },
   genTitle: "Creating your AI image…",
   genSub: "Hold tight — this usually takes about a minute.",

@@ -60,36 +60,43 @@ Avoid photorealism, 3D render, anime, flat vector or clip art, neon, pastel or w
       },
     ],
   },
-  // WPAP (Wedha's Pop Art Portrait), the Indonesian geometric pop-art style:
-  // straight-edged flat facets, neon palette, navy shadow facets, colour-block
-  // background with small sparkles — blue, yellow or magenta at random so the
-  // wall does not fill up with one colour.
+  // "3D Partikel" on the kiosk (id stays "wpap" so kiosk builds still loaded
+  // on a tablet keep working; it replaced WPAP on 2026-11-11): the doodle
+  // rebuilt as a clean 3D studio render made of thousands of tiny beads or
+  // cubes that break away into floating particles, after the client's four
+  // references. Each variant is one reference: material + backdrop.
   wpap: {
-    becomes: "a finished WPAP-style geometric pop-art illustration (Wedha's Pop Art Portrait)",
-    style: `WPAP — Wedha's Pop Art Portrait, the Indonesian geometric pop-art style.
-- Every form is built from flat, sharp-edged polygon facets bounded by straight lines only, like stained glass cut with a ruler: no curves, no soft edges, no gradients inside a facet.
-- Light and shadow are expressed by switching facet colours, never by shading: bright facets toward the light, deep navy and indigo facets for shadows and contours.
-- Bold, saturated neon palette: hot magenta, fuchsia, electric cyan, turquoise, lime green, lemon yellow, tangerine orange and violet. The visitor's own colours stay the dominant hue family of each element they coloured.
-- Inside each element the colour is split across several neighbouring neon shades from facet to facet (e.g. yellow → lemon, tangerine and lime with a magenta accent), giving the rainbow-faceted WPAP look.
-- Background of {variant}.
-- The subject must stand out from the background: where an element shares the background hue, edge it with deep navy facets and shift its facets to contrasting neon shades.
-- High-contrast, energetic, celebratory poster art.`,
-    negative: `photorealism, photograph, soft shading, airbrush, smooth gradients, watercolor, pencil or ink sketch, painterly brush strokes, blurry edges, 3D render, CGI, anime or manga characters, existing cartoon characters or celebrities, muted or pastel colours, plain white background, frame, border, text, letters, words, numbers, signature, watermark, logo, extra people or objects that are not in the doodle, changed composition, cropped subject, distorted anatomy, extra limbs or fingers, violence, gore, nudity, offensive or political symbols`,
-    compact: `Style: WPAP (Wedha's Pop Art Portrait), Indonesian geometric pop art. Every form made of flat, sharp-edged polygon facets with straight lines only; light and shadow shown by switching facet colours (deep navy facets for shadows), never by shading; saturated neon palette of magenta, cyan, turquoise, lime, yellow, orange and violet while keeping the visitor's colours dominant; split each colour across several neighbouring neon shades from facet to facet; background of {variant}; subject always stands out from it (navy edge facets, contrasting shades); high-contrast poster art.
-Avoid photorealism, soft shading, gradients, watercolor, sketchy lines, 3D render, anime or existing characters, pastel colours, plain white background, extra people or objects, cropped subject, distorted anatomy, violence, nudity.`,
-    output: "A single square 1:1 illustration, full bleed, with a geometric colour-block background.",
+    becomes: "a finished, gallery-quality 3D render in which every element is built from thousands of tiny spheres or cubes that partly break apart into floating particles",
+    style: `Contemporary 3D particle art — a clean, photoreal CGI studio render (Cinema 4D / Octane / Houdini look).
+- Every element of the doodle becomes a solid 3D object built from thousands of tiny identical units, packed in neat rows and grids on its faces: {variant}
+- Parts of each object are breaking apart: along some edges the units come loose and drift away as floating particles, with a light trail of scattered units falling below and around it, as if the object is dissolving or assembling. Each subject stays clearly readable, at least three quarters intact.
+- Thin doodle lines become chunky 3D bars or tubes of units with real thickness; filled shapes become blocks, slabs or rounded volumes.
+- The visitor's own colours are the colour of the units of each element they coloured (one hue per element, with natural light-and-shadow shades); uncoloured lines take the variant's material colour.
+- Soft studio lighting from above, gentle contact shadows and ambient occlusion between the units, a little depth of field on the particles nearest and farthest from the camera, crisp detail.
+- The subject always contrasts with the backdrop: where an element shares the backdrop's hue, use a lighter or deeper shade of it.
+- Minimal, premium and playful contemporary 3D art direction.`,
+    negative: `flat 2D illustration, drawing, sketch or ink lines, outlines, watercolor, gouache, painterly brush strokes, cartoon, anime, vector art, clip art, flat pixel art, WPAP, stained glass, neon glow, subject completely exploded or unreadable, cluttered or busy background, room interior, landscape, frame, border, text, letters, words, numbers, signature, watermark, logo, extra people or objects that are not in the doodle, changed composition, cropped subject, distorted anatomy, extra limbs or fingers, violence, gore, nudity, offensive or political symbols`,
+    compact: `Style: contemporary 3D particle art, a clean photoreal CGI studio render. Every element becomes a solid 3D object built from thousands of tiny identical units packed in neat rows: {variant}. Some edges break apart into floating, falling particles, but each subject stays clearly readable. Doodle lines become chunky 3D bars of units; the visitor's colours are the colour of each element's units. Soft studio light, contact shadows, slight depth of field, crisp detail; the subject contrasts with the backdrop; minimal, premium, playful.
+Avoid flat 2D drawing, outlines, painterly strokes, cartoon, anime, vector or pixel art, neon glow, an unreadable exploded subject, busy backgrounds, extra people or objects, cropped subject, distorted anatomy, violence, nudity.`,
+    output: "A single square 1:1 3D render, full bleed, on a seamless studio backdrop.",
+    // Backdrops in Astragraphia colours, burgundy dominant (client brief):
+    // burgundy #6C1D45, magenta #C6007E, orange #DE7C00 from the main gradient.
     variants: [
       {
-        full: "large flat geometric colour blocks in teal, cyan and deep navy, with a few small white four-point sparkle stars",
-        compact: "flat teal, cyan and navy colour blocks with a few small white sparkle stars",
+        full: "small glossy beads, like magnetic ball toys, on a smooth seamless studio backdrop graded from deep burgundy (#6C1D45) at the bottom to Astragraphia magenta (#C6007E) at the top.",
+        compact: "small glossy beads on a seamless deep-burgundy to magenta gradient backdrop",
       },
       {
-        full: "large flat geometric colour blocks in lemon yellow, golden amber and tangerine orange, with a few deep navy and plum facets at the edges and a few small white four-point sparkle stars",
-        compact: "flat lemon-yellow, amber and tangerine colour blocks with a few navy and plum edge facets and small white sparkle stars",
+        full: "small matte spheres, densely packed like a particle simulation, on a flat deep burgundy (#6C1D45) seamless studio backdrop with a warm orange (#DE7C00) glow behind the subject.",
+        compact: "small matte spheres, densely packed, on a flat deep-burgundy backdrop with a warm orange glow behind the subject",
       },
       {
-        full: "large flat geometric colour blocks in hot magenta, fuchsia and deep plum-violet, with a few small white four-point sparkle stars",
-        compact: "flat hot-magenta, fuchsia and deep plum colour blocks with a few small white sparkle stars",
+        full: "tiny soft-edged cubes, like a voxel mosaic skin, on a dark wine-burgundy seamless studio backdrop with a soft overhead spotlight and a faint magenta (#C6007E) rim light.",
+        compact: "tiny soft-edged cubes like a voxel mosaic, on a dark wine-burgundy backdrop with a soft spotlight and a faint magenta rim light",
+      },
+      {
+        full: "small faceted low-poly blocks, on a burgundy (#6C1D45) seamless studio floor and wall with a few small magenta, orange and soft-grey low-poly solids and glossy spheres resting around the subject.",
+        compact: "small faceted low-poly blocks, on a burgundy floor and wall with a few magenta, orange and soft-grey low-poly solids and glossy spheres around",
       },
     ],
   },
