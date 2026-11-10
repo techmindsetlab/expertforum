@@ -13,7 +13,7 @@ import { writeFileSync } from "node:fs";
 const SR = 24000;
 const LENGTH = 13.6; // seconds per loop
 const N = Math.round(SR * LENGTH);
-const file = process.argv[2] ?? "Printer Scan.wav";
+const file = process.argv[2] ?? "Printer Scan.mp3";
 
 // Deterministic noise, so every render is the same file.
 let seed = 20261111;
