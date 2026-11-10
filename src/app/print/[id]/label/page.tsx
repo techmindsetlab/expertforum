@@ -26,7 +26,6 @@ export default async function LabelPage(props: PageProps<"/print/[id]/label">) {
           <img className={s.logoAg} src="/brand/astragraphia-wordmark.svg" alt="Astragraphia" />
           <img className={s.logo70} src="/brand/astra70-logo.png" alt="70 Tahun Astra" />
           <img className={s.logoAgit} src="/brand/agit-logo.png" alt="agit" />
-          <img className={s.logoEf} src="/brand/expert-forum-logo.png" alt="Expert Forum" />
         </header>
 
         <div className={s.art}>

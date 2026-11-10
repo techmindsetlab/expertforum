@@ -1,7 +1,7 @@
 /* A4 portrait = 210 × 297 mm. All sizes in mm so screen preview = paper. */
 
 .sheet {
-  /* Handwriting: Momo Signature in Astra blue, like a blue-ink pen. */
+  /* Handwriting: Astoria in Astra blue, like a blue-ink pen. */
   --hand-ink: #005aaa;
   --pad-top: 12mm;
   --header: 12mm;
@@ -27,8 +27,8 @@
   }
 }
 
-/* Header: astragraphia · 70 Tahun Astra · agit · Expert Forum, both
-   "member of ASTRA" lines the same size. */
+/* Header: astragraphia · 70 Tahun Astra · agit, both "member of ASTRA"
+   lines the same size. The Expert Forum logo sits in the footer. */
 .top {
   display: flex;
   align-items: center;
@@ -50,10 +50,6 @@
 
 .logoAgit {
   height: 9mm;
-}
-
-.logoEf {
-  height: 8.6mm;
 }
 
 /* Artwork runs from the header down to the footer rule. */
@@ -89,7 +85,9 @@
   text-align: right;
   font-family: var(--font-sign), cursive;
   font-weight: 400;
-  font-size: min(14mm, calc(100cqw / (var(--n) * 0.62)));
+  /* Astoria: ~0.42 em per character and a small x-height, so a larger cap
+     than a wide script would need; FitLine still shrinks any overflow. */
+  font-size: min(22mm, calc(100cqw / (var(--n) * 0.46)));
   line-height: 1.3;
   color: var(--hand-ink);
   /* White halo so the blue ink reads on blue artwork too. */
@@ -139,7 +137,9 @@
   font-family: var(--font-sign), cursive;
   font-weight: 400;
   color: var(--hand-ink);
-  font-size: 1.12em;
+  font-size: 1.6em; /* Astoria's small x-height */
+  line-height: 0; /* keep the line box from growing */
+  top: 0.14em; /* Astoria's lowercase sits ~0.14 em above the baseline */
   letter-spacing: 0;
 }
 
@@ -215,7 +215,7 @@
   display: block;
 }
 
-/* Event block: Expert Forum tagline left, when + where right. */
+/* Event block: Expert Forum logo + tagline left, when + where right. */
 .event {
   flex: none;
   display: flex;
@@ -227,6 +227,24 @@
   border-top: 0.3mm solid #d6deea;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.eventBrand {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+
+.logoEf {
+  display: block;
+  height: 7.4mm;
+  width: auto;
+}
+
+.eventBrand i {
+  align-self: stretch;
+  width: 0.3mm;
+  background: #d6deea;
 }
 
 .eventTag,

@@ -41,7 +41,6 @@ export default async function PrintPage(props: PageProps<"/print/[id]">) {
           <img className={s.logoAg} src="/brand/astragraphia-wordmark.svg" alt="Astragraphia" />
           <img className={s.logo70} src="/brand/astra70-logo.png" alt="70 Tahun Astra" />
           <img className={s.logoAgit} src="/brand/agit-logo.png" alt="agit" />
-          <img className={s.logoEf} src="/brand/expert-forum-logo.png" alt="Expert Forum" />
         </header>
 
         <div className={s.art}>
@@ -70,11 +69,15 @@ export default async function PrintPage(props: PageProps<"/print/[id]">) {
               <span>DOWNLOAD YOUR ART</span>
             </div>
           </div>
-          {/* Event: tagline left, day · date · time and venue right. */}
+          {/* Event: Expert Forum logo + tagline left, day · date · time and venue right. */}
           <div className={s.event}>
-            <div className={s.eventTag}>
-              <b>{EVENT.tagline}</b>
-              <span>{EVENT.subline}</span>
+            <div className={s.eventBrand}>
+              <img className={s.logoEf} src="/brand/expert-forum-logo.png" alt="Expert Forum" />
+              <i />
+              <div className={s.eventTag}>
+                <b>{EVENT.tagline}</b>
+                <span>{EVENT.subline}</span>
+              </div>
             </div>
             <div className={s.eventWhen}>
               <b>

@@ -437,7 +437,8 @@ export const ORNAMENT_PRESETS = {
         1 - Math.hypot((1 - u) * 1.6, (1 - v) * 1.9), // bottom right
       );
       const header = u < 0.5 && v < 0.24 ? 0 : 1; // logos + headline stay readable
-      return corner * 1.25 * header;
+      const footer = v > 0.88 && u > 0.3 && u < 0.7 ? 0 : 1; // Expert Forum logo, bottom centre
+      return corner * 1.25 * header * footer;
     },
     fps: 60,
     maxDpr: 1.25,

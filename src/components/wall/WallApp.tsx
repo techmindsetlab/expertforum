@@ -184,12 +184,8 @@ export default function WallApp() {
         <div className={s.brand}>
           <div className={s.lockup}>
             <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
-            <i />
             <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
-            <i />
             <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
-            <i />
-            <img className={s.logoEf} src="/brand/expert-forum-logo-white.png" alt="Expert Forum" />
           </div>
           {!empty && (
             <>
@@ -224,6 +220,10 @@ export default function WallApp() {
           ))}
         </div>
       )}
+
+      <footer className={s.footer}>
+        <img className={s.logoEf} src="/brand/expert-forum-logo-white.png" alt="Expert Forum" />
+      </footer>
 
       {hero && <HeroMoment hero={hero} speedRef={speed} onDone={finishHero} />}
 

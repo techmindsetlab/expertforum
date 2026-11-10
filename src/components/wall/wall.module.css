@@ -49,12 +49,12 @@
   gap: 1.6vh;
 }
 
-/* astragraphia · 70 Tahun Astra · agit · Expert Forum — sized so both
-   "member of ASTRA" lines match. */
+/* astragraphia · 70 Tahun Astra · agit, no dividers — sized so both
+   "member of ASTRA" lines match. The Expert Forum logo sits in the footer. */
 .lockup {
   display: flex;
   align-items: center;
-  gap: 2.2vh;
+  gap: 3.6vh;
 }
 
 .lockup img {
@@ -73,15 +73,24 @@
   height: 5.2vh;
 }
 
-.logoEf {
-  height: 4.8vh;
+/* ─── Footer: Expert Forum logo, bottom centre (ornament keeps it clear) ── */
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.6vh;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
 }
 
-.lockup i {
-  width: 1px;
+.logoEf {
+  display: block;
   height: 5vh;
-  background: rgba(255, 255, 255, 0.4);
+  width: auto;
 }
+
 
 .headline {
   display: flex;
@@ -154,12 +163,12 @@
   top: 21vh;
   display: flex;
   flex-direction: column;
-  gap: 2.4vh;
+  gap: 1.8vh; /* rows end at ~89vh, leaving the footer logo room */
   z-index: 2;
 }
 
 .row {
-  height: 24vh;
+  height: 21.4vh;
   overflow: visible;
   white-space: nowrap;
 }
@@ -178,8 +187,8 @@
 .card {
   position: relative;
   flex: none;
-  width: 19.5vh;
-  padding: 1vh 1vh 0;
+  width: 18vh;
+  padding: 0.9vh 0.9vh 0;
   background: #fff;
   border-radius: 1.2vh;
   box-shadow: 0 1.6vh 3.6vh rgba(2, 10, 26, 0.45);
@@ -188,8 +197,8 @@
 }
 
 .card img {
-  width: 17.5vh;
-  height: 17.5vh;
+  width: 16.2vh;
+  height: 16.2vh;
   border-radius: 0.6vh;
   object-fit: cover;
   background: #f4efe9;
@@ -200,17 +209,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.8vh;
-  height: 4.4vh;
+  height: 4.1vh;
 }
 
 .caption b {
-  font-size: 1.5vh;
+  font-size: 1.4vh;
   letter-spacing: 0.06em;
   color: var(--plum);
 }
 
 .caption span {
-  font-size: 3.1vh;
+  font-size: 2.9vh;
   overflow: hidden;
   text-overflow: ellipsis;
 }

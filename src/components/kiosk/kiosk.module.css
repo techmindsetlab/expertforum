@@ -179,10 +179,10 @@
 .lockup {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 2rem;
 }
 
-/* astragraphia · 70 Tahun Astra · agit · Expert Forum */
+/* astragraphia · 70 Tahun Astra · agit, no dividers (no Expert Forum logo on the kiosk) */
 .lockup img {
   width: auto;
 }
@@ -199,15 +199,6 @@
   height: 2.85rem;
 }
 
-.logoEf {
-  height: 2.5rem;
-}
-
-.lockup i {
-  width: 1px;
-  height: 2.8rem;
-  background: rgba(255, 255, 255, 0.4);
-}
 
 .lang {
   display: flex;

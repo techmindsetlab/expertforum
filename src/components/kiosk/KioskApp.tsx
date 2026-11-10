@@ -443,12 +443,8 @@ export default function KioskApp() {
         <header className={s.header}>
           <div className={s.lockup}>
             <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
-            <i />
             <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
-            <i />
             <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
-            <i />
-            <img className={s.logoEf} src="/brand/expert-forum-logo-white.png" alt="Expert Forum" />
           </div>
           <div className={s.lang} role="group" aria-label="Language">
             {(["id", "en"] as const).map((l) => (
