@@ -29,7 +29,7 @@ const SUCCESS_RESET_S = 20;
 const DRAW_LIMIT_MS = 180_000; // 3 minutes per drawing; submitting stays possible afterwards
 const COUNTDOWN_SFX_S = 10; // countdown sound: ten ticks, final hit at 10.0 s
 const BELL_AT_S = 30; // one bell strike when this much drawing time is left
-const KIOSK_SFX: SfxName[] = ["pen", "countdown", "marker", "points"];
+const KIOSK_SFX: SfxName[] = ["pen", "countdown", "scan", "points"];
 
 const fmt = (n: number) => `#${String(n).padStart(3, "0")}`;
 const clock = (ms: number) => {
@@ -264,11 +264,12 @@ export default function KioskApp() {
   }, [step, deadline]);
   const timeUp = deadline != null && left <= 0;
 
-  // Marker strokes while the AI paints; a chime when the art reaches the wall.
+  // A printer scanning while the AI paints (it opens on the lid clack, so no
+  // fade-in); a chime when the art reaches the wall.
   useEffect(() => {
     if (step !== "generating") return;
-    const marker = playSfx("marker", { loop: true, volume: 0.35, fadeIn: 0.8 });
-    return () => marker.stop(0.8);
+    const scan = playSfx("scan", { loop: true, volume: 0.5 });
+    return () => scan.stop(0.6);
   }, [step]);
 
   useEffect(() => {

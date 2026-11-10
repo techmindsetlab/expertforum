@@ -14,8 +14,9 @@ const FILES = {
   sketch: new URL("../assets/sounds/Sketching 1.wav", import.meta.url).href,
   /** Kiosk: pen on the canvas (continuous scribble, 1.4 s). */
   pen: new URL("../assets/sounds/Sketching 4.wav", import.meta.url).href,
-  /** Kiosk: while the AI paints (marker strokes with natural pauses, 26 s). */
-  marker: new URL("../assets/sounds/soundjay_marker-drawing_main-01.mp3", import.meta.url).href,
+  /** Kiosk: while the AI paints — a printer's flatbed scan, two passes per
+   *  13.6 s loop (synthesised by scripts/scanner-sfx.mjs). */
+  scan: new URL("../assets/sounds/Printer Scan.wav", import.meta.url).href,
   /** Wall: a new artwork arrives. */
   success: new URL("../assets/sounds/Success.wav", import.meta.url).href,
 };
