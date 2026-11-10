@@ -463,7 +463,11 @@ export const ORNAMENT_PRESETS = {
     density: (u: number, v: number, aspect: number) => {
       const x = Math.min(u, 1 - u) * aspect; // distance to the nearest side, in screen heights
       const y = Math.min(v, 1 - v);
-      return Math.max(1 - x * 4.2, 1 - y * 7.5) * 1.2;
+      // The partner logos stay above the hero: keep their cells empty (16:9 grid,
+      // top-left logo row and the Expert Forum logo bottom centre).
+      const logos = v < 0.1 && u < 0.26 ? 0 : 1;
+      const footer = v > 0.93 && u > 0.42 && u < 0.58 ? 0 : 1;
+      return Math.max(1 - x * 4.2, 1 - y * 7.5) * 1.2 * logos * footer;
     },
     fps: 60,
     maxDpr: 1.25,

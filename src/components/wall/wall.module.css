@@ -40,7 +40,9 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  z-index: 3;
+  /* No z-index here: the header must not be a stacking context, so the logo
+     lockup (z 6) can sit above the new-artwork hero (z 5) while the headline,
+     CTA and counter (z 3) stay under its backdrop. */
 }
 
 .brand {
@@ -52,6 +54,8 @@
 /* astragraphia · 70 Tahun Astra · agit, no dividers — sized so both
    "member of ASTRA" lines match. The Expert Forum logo sits in the footer. */
 .lockup {
+  position: relative;
+  z-index: 6; /* partner logos stay visible during the hero */
   display: flex;
   align-items: center;
   gap: 3.6vh;
@@ -81,7 +85,7 @@
   bottom: 2.6vh;
   display: flex;
   justify-content: center;
-  z-index: 3;
+  z-index: 6; /* above the hero, like the header logos */
   pointer-events: none;
 }
 
@@ -93,6 +97,8 @@
 
 
 .headline {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: baseline;
   gap: 1.4vh;
@@ -109,12 +115,17 @@
   font-family: var(--font-hand);
   color: var(--gold);
   font-size: 1.55em; /* Astoria script has a small x-height */
+  /* Same line box as "print" / "mark" (1.55 × 0.65 ≈ 1), so the bigger
+     script doesn't push the CTA line down onto the first row of cards. */
+  line-height: 0.65;
   letter-spacing: 0;
   transform: rotate(-6deg) translateY(0.02em);
   display: inline-block;
 }
 
 .cta {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 1vh;
@@ -128,6 +139,8 @@
 
 /* Navy plate keeps the count readable over the ornament corner. */
 .counter {
+  position: relative;
+  z-index: 3;
   text-align: right;
   padding: 1.8vh 2.6vh 1.6vh;
   border-radius: 2.2vh;
@@ -282,7 +295,7 @@
 .heroBackdrop {
   position: absolute;
   inset: 0;
-  background: rgba(5, 18, 40, 0.62);
+  background: rgba(5, 18, 40, 0.76); /* a little darker so the pop-up stands out */
   backdrop-filter: blur(0.8vh);
   -webkit-backdrop-filter: blur(0.8vh);
 }
@@ -369,7 +382,7 @@
   font-weight: 700;
   line-height: 0.85;
   letter-spacing: -0.05em;
-  color: var(--gold);
+  color: var(--blue); /* Expert Forum blue (was gold) */
   font-variant-numeric: tabular-nums;
 }
 
