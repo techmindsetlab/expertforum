@@ -16,7 +16,7 @@ const FILES = {
   pen: new URL("../assets/sounds/Sketching 4.wav", import.meta.url).href,
   /** Kiosk: while the AI paints — a printer's flatbed scan, two passes per
    *  13.6 s loop (synthesised by scripts/scanner-sfx.mjs). */
-  scan: new URL("../assets/sounds/Printer Scan.wav", import.meta.url).href,
+  scan: new URL("../assets/sounds/Printer Scan.mp3", import.meta.url).href,
   /** Wall: a new artwork arrives. */
   success: new URL("../assets/sounds/Success.wav", import.meta.url).href,
 };
