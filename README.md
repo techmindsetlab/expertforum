@@ -99,8 +99,9 @@ dengan profil sendiri (Chrome mengingat printer terakhir per profil, dan login `
   - *Ilustrasi Digital Art* (id `fashion`): sapuan kuas gouache tebal + aksen tinta hitam di kertas putih;
     warna diacak: ungu/pink/merah, biru/coral, magenta/kuning, atau emerald/scarlet.
   - *Ilustrasi 3D Partikel* (id `wpap`, menggantikan Pop Art WPAP): render 3D dari ribuan butir/kubus kecil
-    yang sebagian pecah jadi partikel; latar warna Astragraphia dominan burgundy (gradien burgundy-magenta,
-    burgundy + glow oranye, wine gelap + rim magenta, atau lantai burgundy dengan low-poly).
+    yang sebagian pecah jadi partikel, di set studio geometris (panel warna bersudut, bola, cangkang setengah
+    bola, kubus): setengahnya burgundy Astragraphia, setengahnya pastel yang diacak (pink/lilac, biru/kuning,
+    periwinkle/lilac/pink, kuning/pink/biru).
 - Uji cepat di luar app: `node --env-file-if-exists=.env.development.local scripts/ai-test.mjs [sketsa.png]`.
 - Gambar yang ditolak filter keamanan tidak pernah tampil di wall; peserta diminta menggambar ulang.
 

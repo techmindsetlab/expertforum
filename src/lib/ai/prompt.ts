@@ -62,41 +62,45 @@ Avoid photorealism, 3D render, anime, flat vector or clip art, neon, pastel or w
   },
   // "3D Partikel" on the kiosk (id stays "wpap" so kiosk builds still loaded
   // on a tablet keep working; it replaced WPAP on 2026-11-11): the doodle
-  // rebuilt as a clean 3D studio render made of thousands of tiny beads or
-  // cubes that break away into floating particles, after the client's four
-  // references. Each variant is one reference: material + backdrop.
+  // rebuilt as a clean 3D render made of thousands of tiny beads or cubes that
+  // break away into floating particles, after the client's references. The
+  // backdrop is a 3D geometric studio set (colour-block panels, floating
+  // spheres, a half-sphere shell, a cube) about half Astragraphia burgundy;
+  // each variant picks the units' material and the other half's pastels.
   wpap: {
-    becomes: "a finished, gallery-quality 3D render in which every element is built from thousands of tiny spheres or cubes that partly break apart into floating particles",
+    becomes: "a finished, gallery-quality 3D render in which every element is built from thousands of tiny spheres or cubes that partly break apart into floating particles, set in a 3D geometric studio set",
     style: `Contemporary 3D particle art — a clean, photoreal CGI studio render (Cinema 4D / Octane / Houdini look).
 - Every element of the doodle becomes a solid 3D object built from thousands of tiny identical units, packed in neat rows and grids on its faces: {variant}
 - Parts of each object are breaking apart: along some edges the units come loose and drift away as floating particles, with a light trail of scattered units falling below and around it, as if the object is dissolving or assembling. Each subject stays clearly readable, at least three quarters intact.
 - Thin doodle lines become chunky 3D bars or tubes of units with real thickness; filled shapes become blocks, slabs or rounded volumes.
-- The visitor's own colours are the colour of the units of each element they coloured (one hue per element, with natural light-and-shadow shades); uncoloured lines take the variant's material colour.
+- The visitor's own colours are the colour of the units of each element they coloured (one hue per element, with natural light-and-shadow shades); uncoloured lines take a colour that contrasts with the backdrop.
+- Backdrop: a seamless 3D geometric studio set, like a contemporary art-direction set — large flat colour-block wall panels and floor planes meeting at crisp angles, and a few simple smooth solids: floating glossy spheres, a hollow half-sphere shell and a cube. These solids are smaller than the subject, placed behind and around it, never covering or touching it, slightly softer in focus.
+- Backdrop colours: about half of the set is Astragraphia burgundy (#6C1D45) in deep and lighter shades; the other half is the variant's soft pastel panels and solids.
 - Soft studio lighting from above, gentle contact shadows and ambient occlusion between the units, a little depth of field on the particles nearest and farthest from the camera, crisp detail.
-- The subject always contrasts with the backdrop: where an element shares the backdrop's hue, use a lighter or deeper shade of it.
+- The subject is the hero and always contrasts with the set: where an element shares a backdrop hue, use a lighter or deeper shade of it.
 - Minimal, premium and playful contemporary 3D art direction.`,
-    negative: `flat 2D illustration, drawing, sketch or ink lines, outlines, watercolor, gouache, painterly brush strokes, cartoon, anime, vector art, clip art, flat pixel art, WPAP, stained glass, neon glow, subject completely exploded or unreadable, cluttered or busy background, room interior, landscape, frame, border, text, letters, words, numbers, signature, watermark, logo, extra people or objects that are not in the doodle, changed composition, cropped subject, distorted anatomy, extra limbs or fingers, violence, gore, nudity, offensive or political symbols`,
-    compact: `Style: contemporary 3D particle art, a clean photoreal CGI studio render. Every element becomes a solid 3D object built from thousands of tiny identical units packed in neat rows: {variant}. Some edges break apart into floating, falling particles, but each subject stays clearly readable. Doodle lines become chunky 3D bars of units; the visitor's colours are the colour of each element's units. Soft studio light, contact shadows, slight depth of field, crisp detail; the subject contrasts with the backdrop; minimal, premium, playful.
-Avoid flat 2D drawing, outlines, painterly strokes, cartoon, anime, vector or pixel art, neon glow, an unreadable exploded subject, busy backgrounds, extra people or objects, cropped subject, distorted anatomy, violence, nudity.`,
-    output: "A single square 1:1 3D render, full bleed, on a seamless studio backdrop.",
-    // Backdrops in Astragraphia colours, burgundy dominant (client brief):
-    // burgundy #6C1D45, magenta #C6007E, orange #DE7C00 from the main gradient.
+    negative: `flat 2D illustration, drawing, sketch or ink lines, outlines, watercolor, gouache, painterly brush strokes, cartoon, anime, vector art, clip art, flat pixel art, WPAP, stained glass, neon glow, subject completely exploded or unreadable, background shapes covering or larger than the subject, cluttered background, furniture, landscape, frame, border, text, letters, words, numbers, signature, watermark, logo, extra people or objects that are not in the doodle, changed composition, cropped subject, distorted anatomy, extra limbs or fingers, violence, gore, nudity, offensive or political symbols`,
+    compact: `Style: contemporary 3D particle art, a clean photoreal CGI studio render. Every element becomes a solid 3D object built from thousands of tiny identical units packed in neat rows: {variant}. Some edges break apart into floating, falling particles, but each subject stays clearly readable. Doodle lines become chunky 3D bars of units; the visitor's colours are the colour of each element's units. Backdrop: a 3D geometric studio set of angled colour-block wall and floor panels with a few floating glossy spheres, a half-sphere shell and a cube, smaller than and behind the subject; about half of it Astragraphia burgundy (#6C1D45), the rest the pastels above. Soft studio light, contact shadows, slight depth of field; the subject is the hero; minimal, premium, playful.
+Avoid flat 2D drawing, outlines, painterly strokes, cartoon, anime, vector or pixel art, neon glow, an unreadable exploded subject, background shapes covering the subject, extra people or objects, cropped subject, distorted anatomy, violence, nudity.`,
+    output: "A single square 1:1 3D render, full bleed, in a geometric studio set.",
+    // The other half of the set next to burgundy (client: 50% burgundy).
+    // Astragraphia magenta #C6007E / orange #DE7C00 appear as accents.
     variants: [
       {
-        full: "small glossy beads, like magnetic ball toys, on a smooth seamless studio backdrop graded from deep burgundy (#6C1D45) at the bottom to Astragraphia magenta (#C6007E) at the top.",
-        compact: "small glossy beads on a seamless deep-burgundy to magenta gradient backdrop",
+        full: "small glossy beads, like magnetic ball toys. The pastel half of the set: soft pink and lilac panels, with Astragraphia magenta (#C6007E) accents and pink, lilac and blue spheres.",
+        compact: "small glossy beads; pastel half of the set in soft pink and lilac with magenta accents",
       },
       {
-        full: "small matte spheres, densely packed like a particle simulation, on a flat deep burgundy (#6C1D45) seamless studio backdrop with a warm orange (#DE7C00) glow behind the subject.",
-        compact: "small matte spheres, densely packed, on a flat deep-burgundy backdrop with a warm orange glow behind the subject",
+        full: "small matte spheres, densely packed like a particle simulation. The pastel half of the set: powder blue and butter yellow panels, with a warm orange (#DE7C00) accent and blue and yellow spheres.",
+        compact: "small matte spheres, densely packed; pastel half of the set in powder blue and butter yellow with an orange accent",
       },
       {
-        full: "tiny soft-edged cubes, like a voxel mosaic skin, on a dark wine-burgundy seamless studio backdrop with a soft overhead spotlight and a faint magenta (#C6007E) rim light.",
-        compact: "tiny soft-edged cubes like a voxel mosaic, on a dark wine-burgundy backdrop with a soft spotlight and a faint magenta rim light",
+        full: "tiny soft-edged cubes, like a voxel mosaic skin. The pastel half of the set: periwinkle blue, lilac and soft pink panels and spheres, under a soft overhead spotlight.",
+        compact: "tiny soft-edged cubes like a voxel mosaic; pastel half of the set in periwinkle, lilac and soft pink",
       },
       {
-        full: "small faceted low-poly blocks, on a burgundy (#6C1D45) seamless studio floor and wall with a few small magenta, orange and soft-grey low-poly solids and glossy spheres resting around the subject.",
-        compact: "small faceted low-poly blocks, on a burgundy floor and wall with a few magenta, orange and soft-grey low-poly solids and glossy spheres around",
+        full: "small faceted low-poly blocks. The pastel half of the set: butter yellow, soft pink and powder blue panels, with a pastel cube and glossy spheres resting on the floor.",
+        compact: "small faceted low-poly blocks; pastel half of the set in butter yellow, soft pink and powder blue with a cube and spheres on the floor",
       },
     ],
   },
