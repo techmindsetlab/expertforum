@@ -1,13 +1,13 @@
 # Expert Forum — print your mark
 
-Live Sketch → AI → Digital Wall untuk booth Astragraphia & agit di **Astra Expert Forum 2026**
+Live Sketch → AI → Digital Wall untuk booth Astragraphia & AGIT di **Astra Expert Forum 2026**
 (Rabu, 11 November 2026, 08.00–12.00 WIB, Catur Dharma Hall, Menara Astra lt. 5).
 Tema: *15 Years of Astra Expert: Strengthen Value Creation for Business Impact.*
 
 Konsep dan alur sama dengan *print your mark* WCCE 2026. Tampilan memakai KV Expert Forum
 (expertforum2026.com):
 
-- Logo **astragraphia · 70 Tahun Astra · agit** di kiosk, wall, cetak A4, label, halaman
+- Logo **astragraphia · 70 Tahun Astra · AGIT** di kiosk, wall, cetak A4, label, halaman
   download, email dan kartu unduhan (`public/brand/`).
 - Palet KV: navy `#0b1f3a`, royal `#2040da`, blue `#0380e1`, sky, red, amber `#fba500`,
   cream, brown (`src/app/globals.css`).

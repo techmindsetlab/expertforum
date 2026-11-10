@@ -40,7 +40,7 @@ export default async function PrintPage(props: PageProps<"/print/[id]">) {
         <header className={s.top}>
           <img className={s.logoAg} src="/brand/astragraphia-wordmark.svg" alt="Astragraphia" />
           <img className={s.logo70} src="/brand/astra70-logo.png" alt="70 Tahun Astra" />
-          <img className={s.logoAgit} src="/brand/agit-logo.png" alt="agit" />
+          <img className={s.logoAgit} src="/brand/agit-logo.png" alt="AGIT" />
         </header>
 
         <div className={s.art}>

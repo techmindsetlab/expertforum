@@ -107,6 +107,26 @@ export default function KioskApp() {
     } catch {}
     keyRef.current = p.get("key") || readStored("ag_kiosk_key");
     kioskRef.current = p.get("kiosk") || readStored("ag_kiosk_id") || "1";
+
+    // Tablet 2 is an iPad (5th gen): 768 px wide and only ~950 px tall under
+    // Safari's toolbars, while this layout is drawn for tablet 1's 800 × 1280
+    // Galaxy Tab (50 × 80 rem at 16 px), so the bottom buttons fell off screen.
+    // On kiosk 2 rem is scaled so those 50 × 80 rem fill the visible screen,
+    // and data-fit keeps the frame at tablet 1's 50 rem width: every step keeps
+    // its proportions. Tablet 1 is left exactly as it is.
+    if (kioskRef.current !== "2") return;
+    const html = document.documentElement;
+    const fit = () => {
+      html.style.fontSize = `${Math.min(window.innerWidth / 50, window.innerHeight / 80)}px`;
+    };
+    fit();
+    html.setAttribute("data-fit", "");
+    window.addEventListener("resize", fit);
+    return () => {
+      window.removeEventListener("resize", fit);
+      html.style.fontSize = "";
+      html.removeAttribute("data-fit");
+    };
   }, []);
 
   const api = useCallback(async (path: string, body?: unknown, timeout = 110_000) => {
@@ -444,7 +464,7 @@ export default function KioskApp() {
           <div className={s.lockup}>
             <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
             <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
-            <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
+            <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="AGIT" />
           </div>
           <div className={s.lang} role="group" aria-label="Language">
             {(["id", "en"] as const).map((l) => (

@@ -167,6 +167,12 @@
   padding: 2.4rem 2.6rem 2.6rem;
 }
 
+/* Kiosk 2 (iPad, 3:4): rem is scaled to the screen in KioskApp; the frame
+   keeps tablet 1's 50 rem width so squares (canvas, artwork) stay the same. */
+:global(html[data-fit]) .frame {
+  max-width: 50rem;
+}
+
 /* ─── Header ─────────────────────────────────────────── */
 .header {
   display: flex;
@@ -182,7 +188,7 @@
   gap: 2rem;
 }
 
-/* astragraphia · 70 Tahun Astra · agit, no dividers (no Expert Forum logo on the kiosk) */
+/* astragraphia · 70 Tahun Astra · AGIT, no dividers (no Expert Forum logo on the kiosk) */
 .lockup img {
   width: auto;
 }
@@ -865,6 +871,16 @@
   box-shadow:
     0 2rem 5rem rgba(2, 10, 26, 0.45),
     0 0 0 0.4rem rgba(255, 255, 255, 0.12);
+}
+
+/* Safari before 16 (an iPad still on iPadOS 15) has no container units: size
+   the canvas by the board's height, which is the shorter side on both tablets. */
+@supports not (container-type: size) {
+  .canvasWrap {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+  }
 }
 
 .canvas {

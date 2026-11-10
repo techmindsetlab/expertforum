@@ -14,7 +14,7 @@ export default function Home() {
       <div className={s.head}>
         <img src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" className={s.logo} />
         <img src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" className={s.mark} />
-        <img src="/brand/agit-logo-white.png" alt="agit" className={s.agit} />
+        <img src="/brand/agit-logo-white.png" alt="AGIT" className={s.agit} />
       </div>
       <h1 className={s.title}>
         print <span className="signature">your</span> mark

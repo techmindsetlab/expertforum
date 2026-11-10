@@ -95,7 +95,7 @@ export function ShareView({ art, link }: { art: PublicArtwork; link: string }) {
         <i />
         <img className={s.logo70} src={`${SHARE_PATH}/brand/astra70-logo-white.png`} alt="70 Tahun Astra" />
         <i />
-        <img className={s.logoAgit} src={`${SHARE_PATH}/brand/agit-logo-white.png`} alt="agit" />
+        <img className={s.logoAgit} src={`${SHARE_PATH}/brand/agit-logo-white.png`} alt="AGIT" />
       </header>
 
       <div className={s.kicker} data-in>

@@ -185,7 +185,7 @@ export default function WallApp() {
           <div className={s.lockup}>
             <img className={s.logoAg} src="/brand/astragraphia-wordmark-white.svg" alt="Astragraphia" />
             <img className={s.logo70} src="/brand/astra70-logo-white.png" alt="70 Tahun Astra" />
-            <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="agit" />
+            <img className={s.logoAgit} src="/brand/agit-logo-white.png" alt="AGIT" />
           </div>
           {!empty && (
             <>

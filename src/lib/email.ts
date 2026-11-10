@@ -26,18 +26,18 @@ export async function sendArtworkEmail(id: string, origin: string) {
     ? {
         subject: `Your artwork #${no} is on the wall — ${EVENT.short}`,
         hi: `Hi ${esc(art.name)},`,
-        lead: `Thanks for printing your mark at the Astragraphia & agit booth. Your sketch, reimagined by AI, is now part of the live wall at ${EVENT.short}.`,
+        lead: `Thanks for printing your mark at the Astragraphia & AGIT booth. Your sketch, reimagined by AI, is now part of the live wall at ${EVENT.short}.`,
         cta: "View & download artwork",
         qr: "Scan this QR code anytime to open your artwork.",
-        foot: `You received this email because you joined Live Sketch at the Astragraphia & agit booth, ${EVENT.short}.`,
+        foot: `You received this email because you joined Live Sketch at the Astragraphia & AGIT booth, ${EVENT.short}.`,
       }
     : {
         subject: `Karyamu #${no} sudah tampil di layar — ${EVENT.short}`,
         hi: `Hai ${esc(art.name)},`,
-        lead: `Terima kasih sudah mencetak jejakmu di booth Astragraphia & agit. Sketsamu yang dilukis ulang oleh AI kini menjadi bagian dari dinding karya di ${EVENT.short}.`,
+        lead: `Terima kasih sudah mencetak jejakmu di booth Astragraphia & AGIT. Sketsamu yang dilukis ulang oleh AI kini menjadi bagian dari dinding karya di ${EVENT.short}.`,
         cta: "Lihat & unduh karya",
         qr: "Pindai QR ini kapan saja untuk membuka karyamu.",
-        foot: `Email ini dikirim karena kamu ikut Live Sketch di booth Astragraphia & agit, ${EVENT.short}.`,
+        foot: `Email ini dikirim karena kamu ikut Live Sketch di booth Astragraphia & AGIT, ${EVENT.short}.`,
       };
 
   const html = `<!doctype html><html><body style="margin:0;background:#eef3f9;font-family:Arial,Helvetica,sans-serif;color:#0b1f3a">
@@ -46,7 +46,7 @@ export async function sendArtworkEmail(id: string, origin: string) {
 <tr><td style="padding:24px 28px;border-bottom:1px solid #e3eaf3">
   <table role="presentation" width="100%"><tr>
     <td><img src="${logo}" width="170" alt="Astragraphia" style="display:block;border:0"></td>
-    <td align="right"><img src="${astra70}" width="50" alt="70 Tahun Astra" style="display:inline-block;border:0;vertical-align:middle;margin-right:14px"><img src="${agit}" width="56" alt="agit" style="display:inline-block;border:0;vertical-align:middle"></td>
+    <td align="right"><img src="${astra70}" width="50" alt="70 Tahun Astra" style="display:inline-block;border:0;vertical-align:middle;margin-right:14px"><img src="${agit}" width="56" alt="AGIT" style="display:inline-block;border:0;vertical-align:middle"></td>
   </tr></table>
 </td></tr>
 <tr><td style="padding:28px 28px 8px">
